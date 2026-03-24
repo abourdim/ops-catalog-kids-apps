@@ -1,0 +1,430 @@
+<!DOCTYPE html><html lang="en" dir="ltr" data-theme="terminal"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Pixel Art — Workshop-Diy</title><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Outfit:wght@400;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet"/><style>[data-theme="terminal"]{--bg:#0a0c10;--bg2:#0d1117;--bg3:#161b22;--border:#21262d;--border2:#30363d;--text:#c9d1d9;--text2:#8b949e;--text3:#484f58;--heading:#e6edf3;--accent:#00ff88;--abg:rgba(0,255,136,.06);--abr:rgba(0,255,136,.2);--glow:0 0 20px rgba(0,255,136,.1)}
+[data-theme="midnight"]{--bg:#08090d;--bg2:#0e1018;--bg3:#171a26;--border:#1e2235;--border2:#2a2f45;--text:#b8c0d9;--text2:#7580a0;--text3:#4a5070;--heading:#e0e5f5;--accent:#6c5ce7;--abg:rgba(108,92,231,.06);--abr:rgba(108,92,231,.25);--glow:0 0 20px rgba(108,92,231,.1)}
+[data-theme="ember"]{--bg:#0f0a08;--bg2:#161010;--bg3:#201816;--border:#2d2220;--border2:#3d302c;--text:#d4b8a8;--text2:#9a7e70;--text3:#6a5448;--heading:#f0ddd0;--accent:#ff6b35;--abg:rgba(255,107,53,.06);--abr:rgba(255,107,53,.25);--glow:0 0 20px rgba(255,107,53,.1)}
+[data-theme="arctic"]{--bg:#f4f7fa;--bg2:#fff;--bg3:#eaeff5;--border:#d0d7e0;--border2:#b8c4d0;--text:#3a4555;--text2:#6b7a8d;--text3:#9aa8b8;--heading:#1a2535;--accent:#0066cc;--abg:rgba(0,102,204,.06);--abr:rgba(0,102,204,.2);--glow:0 0 15px rgba(0,102,204,.08)}
+[data-theme="phosphor"]{--bg:#001100;--bg2:#001a00;--bg3:#002200;--border:#003300;--border2:#004400;--text:#33cc33;--text2:#228822;--text3:#116611;--heading:#44ff44;--accent:#44ff44;--abg:rgba(68,255,68,.06);--abr:rgba(68,255,68,.2);--glow:0 0 25px rgba(68,255,68,.15)}
+[data-theme="signal"]{--bg:#0c0a14;--bg2:#110e1c;--bg3:#1a1628;--border:#252040;--border2:#352e55;--text:#c8b8e8;--text2:#8878b8;--text3:#5a4a80;--heading:#e8ddf8;--accent:#00e5ff;--abg:rgba(0,229,255,.06);--abr:rgba(0,229,255,.2);--glow:0 0 20px rgba(0,229,255,.1)}
+[data-theme="redshift"]{--bg:#100808;--bg2:#180c0c;--bg3:#221414;--border:#331a1a;--border2:#442222;--text:#d4a8a8;--text2:#9a6e6e;--text3:#6a4848;--heading:#f0cccc;--accent:#ff3355;--abg:rgba(255,51,85,.06);--abr:rgba(255,51,85,.25);--glow:0 0 20px rgba(255,51,85,.1)}
+[data-theme="sand"]{--bg:#f5f0e8;--bg2:#faf7f0;--bg3:#ede6d8;--border:#d8cebb;--border2:#c5b8a0;--text:#4a4035;--text2:#7a6e60;--text3:#a09585;--heading:#2a2018;--accent:#b8860b;--abg:rgba(184,134,11,.06);--abr:rgba(184,134,11,.2);--glow:0 0 15px rgba(184,134,11,.08)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:13px;min-height:100vh}
+[lang="ar"] body{font-family:'Noto Sans Arabic','IBM Plex Mono',monospace}
+h1,.heading{font-family:'Outfit','Noto Sans Arabic',sans-serif;color:var(--heading)}
+.splash .back-link,.splash~.back-link{opacity:0;pointer-events:none}
+.splash{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.splash-box{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:40px 32px;max-width:400px;width:100%;text-align:center;box-shadow:var(--glow);animation:fadeUp .5s}
+.splash-bism{color:var(--text3);font-size:12px;margin-bottom:14px}
+.btn-go{padding:12px 32px;background:var(--accent);color:var(--bg);border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;letter-spacing:1px;text-transform:uppercase}
+.sw{display:flex;gap:3px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.sw-btn{width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:none;color:var(--text2);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.sw-btn.on{background:var(--abg);border-color:var(--abr);color:var(--accent)}
+.sw-label{color:var(--text3);font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-right:6px;align-self:center}
+.app{display:none;max-width:600px;margin:0 auto;padding:12px 16px}.app.on{display:block}
+.hdr-bism{text-align:center;color:var(--text3);font-size:11px;margin-bottom:8px}
+.hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px;flex-wrap:wrap}
+.hdr h1{font-size:18px}
+.pill{background:var(--abg);border:1px solid var(--abr);color:var(--accent);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.ctrl{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;align-items:center;justify-content:center}
+.ctrl select,.ctrl button{padding:6px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;color:var(--heading);font-size:11px;font-family:inherit;cursor:pointer}
+.ctrl button:hover{border-color:var(--abr)}
+.ctrl button.active-tool{background:var(--abg);border-color:var(--accent);color:var(--accent)}
+.status{text-align:center;font-size:14px;margin-bottom:12px;font-weight:600;color:var(--heading);min-height:22px}
+.game-area{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+.score-row{display:flex;gap:20px;justify-content:center;font-family:'Outfit',sans-serif;margin-bottom:10px}
+.score-item{text-align:center}.score-label{font-size:10px;color:var(--text3)}.score-num{font-size:22px;font-weight:700;color:var(--heading)}
+.log-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;max-height:80px;overflow-y:auto;font-size:10px;color:var(--text2);margin-bottom:10px}
+.log-line{padding:1px 0}.log-line.success{color:var(--accent)}.log-line.error{color:#ff4444}
+.foot{text-align:center;color:var(--text3);font-size:10px;padding:14px 0;border-top:1px solid var(--border)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.back-link{position:fixed;top:8px;left:8px;z-index:100;padding:4px 10px;border-radius:6px;background:var(--bg2);border:1px solid var(--border);color:var(--text2);font-size:11px;text-decoration:none;font-family:'Outfit',sans-serif;opacity:.7;transition:all .15s}.back-link:hover{opacity:1;border-color:var(--accent);color:var(--accent)}[dir="rtl"] .back-link{left:auto;right:8px}
+.sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s}
+.sidebar-overlay.open{opacity:1;pointer-events:auto}
+.sidebar{position:fixed;top:0;width:320px;max-width:85vw;height:100%;background:var(--bg2);border:1px solid var(--border);z-index:201;display:flex;flex-direction:column;transition:transform .25s ease}
+.sidebar-left{left:0;transform:translateX(-100%)}
+[dir="rtl"] .sidebar-left{left:auto;right:0;transform:translateX(100%)}
+.sidebar-left.open{transform:translateX(0)}
+.sidebar-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border)}
+.sidebar-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;color:var(--heading)}
+.btn-close{background:none;border:1px solid var(--border);color:var(--text2);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+.btn-close:hover{border-color:var(--accent);color:var(--accent)}
+.help-tabs{display:flex;border-bottom:1px solid var(--border)}
+.help-tab{flex:1;padding:8px;background:none;border:none;color:var(--text3);font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid transparent;transition:all .15s}
+.help-tab:hover{color:var(--text)}.help-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.sidebar-body{flex:1;overflow-y:auto;padding:14px 16px}
+.help-content{display:none}.help-content.active{display:block}
+.help-item{margin-bottom:8px;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.help-item summary{padding:10px 12px;cursor:pointer;font-size:12px;font-weight:600;color:var(--heading);list-style:none;display:flex;align-items:center;gap:6px}
+.help-item summary::before{content:"▸";color:var(--accent);font-size:10px;transition:transform .2s}
+.help-item[open] summary::before{transform:rotate(90deg)}
+.help-item p{padding:0 12px 10px;font-size:11px;color:var(--text2);line-height:1.6}
+.help-step{display:flex;gap:10px;margin-bottom:12px;align-items:flex-start}
+.help-step-num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--bg);font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.help-step p{font-size:11px;color:var(--text2);line-height:1.6;margin:0}
+.wiki-entry{margin-bottom:14px}.wiki-entry h3{font-size:13px;margin-bottom:4px;color:var(--heading)}.wiki-entry p{font-size:11px;color:var(--text2);line-height:1.6}
+.sidebar-footer{padding:10px 16px;border-top:1px solid var(--border);text-align:center;color:var(--text3);font-size:10px}
+.btn-help{background:none;border:1px solid var(--border);color:var(--text2);padding:6px 10px;border-radius:6px;font-size:11px;font-family:inherit;cursor:pointer}
+.btn-help:hover{border-color:var(--accent);color:var(--accent)}
+.hs-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:12px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);color:gold;font-size:10px;font-weight:600;font-family:'Outfit',sans-serif;margin-left:6px}
+/* Pixel Art specific */
+.palette{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;max-width:360px}
+.pal-btn{width:28px;height:28px;border-radius:6px;border:2px solid var(--border);cursor:pointer;transition:all .1s}
+.pal-btn:hover{transform:scale(1.15)}
+.pal-btn.on{border-color:var(--accent);box-shadow:0 0 8px var(--accent);transform:scale(1.15)}
+.canvas-wrap{position:relative;touch-action:none;display:inline-block;border-radius:8px;overflow:hidden;border:2px solid var(--border)}
+canvas{display:block;image-rendering:pixelated}
+.template-row{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+.tmpl-btn{padding:4px 8px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text2);font-size:10px;cursor:pointer;font-family:inherit}
+.tmpl-btn:hover{border-color:var(--accent);color:var(--accent)}
+.tmpl-btn.on{background:var(--abg);border-color:var(--accent);color:var(--accent)}
+</style></head><body>
+<a href="../../index.html" class="back-link" id="backLink" style="display:none">← Catalog</a>
+<div class="splash" id="splash"><div class="splash-box"><div class="splash-bism">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</div><h1 class="heading" style="font-size:22px;margin-bottom:4px">Pixel Art</h1><div style="color:var(--accent);font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px">Create pixel masterpieces</div><p style="color:var(--text2);font-size:11px;line-height:1.7;margin-bottom:24px">Draw, fill, and create colorful pixel art!</p><button class="btn-go" id="enterBtn">Start Mission</button><div class="sw" style="margin-top:18px"><span class="sw-label">Lang</span><button class="sw-btn on" data-lang="en">EN</button><button class="sw-btn" data-lang="fr">FR</button><button class="sw-btn" data-lang="ar">ع</button></div><div class="sw" style="margin-top:6px"><span class="sw-label">Theme</span><button class="sw-btn on" data-thm="terminal">🖥</button><button class="sw-btn" data-thm="midnight">🌌</button><button class="sw-btn" data-thm="ember">🔥</button><button class="sw-btn" data-thm="phosphor">💚</button><button class="sw-btn" data-thm="signal">📡</button><button class="sw-btn" data-thm="redshift">🔴</button><button class="sw-btn" data-thm="arctic">❄️</button><button class="sw-btn" data-thm="sand">🏜</button></div></div></div>
+
+<div class="app" id="app"><div class="hdr-bism">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</div><div class="hdr"><h1>Pixel Art</h1><span class="pill" id="scorePill">0 painted</span></div>
+<div class="ctrl">
+<select id="gridSel"><option value="8">Small (8x8)</option><option value="16" selected>Medium (16x16)</option><option value="32">Large (32x32)</option></select>
+<select id="tmplSel"><option value="">No Template</option><option value="star">Star</option><option value="heart">Heart</option><option value="smiley">Smiley</option><option value="house">House</option><option value="tree">Tree</option><option value="flower">Flower</option><option value="cat">Cat</option><option value="rocket">Rocket</option></select>
+<button id="toolPaint" class="active-tool">🖌 Paint</button>
+<button id="toolFill">🪣 Fill</button>
+<button id="toolErase">🧹 Erase</button>
+<button id="btnClear">🗑 Clear</button>
+<button id="gridToggle">⊞ Grid</button>
+<button class="btn-help" id="helpBtn" onclick="openHelp()">❓</button>
+<button id="soundBtn">🔊</button>
+<div class="sw"><button class="sw-btn on" data-lang="en">EN</button><button class="sw-btn" data-lang="fr">FR</button><button class="sw-btn" data-lang="ar">ع</button></div>
+<div class="sw"><button class="sw-btn on" data-thm="terminal">🖥</button><button class="sw-btn" data-thm="midnight">🌌</button><button class="sw-btn" data-thm="ember">🔥</button><button class="sw-btn" data-thm="phosphor">💚</button><button class="sw-btn" data-thm="signal">📡</button><button class="sw-btn" data-thm="redshift">🔴</button><button class="sw-btn" data-thm="arctic">❄️</button><button class="sw-btn" data-thm="sand">🏜</button></div>
+</div>
+<div class="status" id="status">Pick a color and start painting!</div>
+<div class="game-area">
+<div class="palette" id="palette"></div>
+<div class="canvas-wrap" id="canvasWrap"><canvas id="artCanvas"></canvas></div>
+</div>
+<div class="score-row"><div class="score-item"><div class="score-label">Painted</div><div class="score-num" id="sc">0</div></div><div class="score-item"><div class="score-label">Total Pixels</div><div class="score-num" id="tot">0</div></div></div>
+<div class="log-box" id="logBox"></div>
+<div class="foot">Workshop-Diy — Pixel Art v1.0</div></div>
+
+<div class="sidebar-overlay" id="helpOverlay" onclick="closeHelp()"></div>
+<aside class="sidebar sidebar-left" id="helpPanel" aria-label="Help" role="dialog" aria-modal="true">
+  <div class="sidebar-header"><span class="sidebar-title">❓ Help</span><button class="btn-close" onclick="closeHelp()">✕</button></div>
+  <div class="help-tabs">
+    <button class="help-tab active" data-tab="faq">FAQ</button>
+    <button class="help-tab" data-tab="howto">How-To</button>
+    <button class="help-tab" data-tab="wiki">Wiki</button>
+  </div>
+  <div class="sidebar-body">
+    <div class="help-content active" id="help-faq">
+        <details class="help-item"><summary>What is Pixel Art?</summary><p>A creative drawing tool where you paint individual pixels on a grid to create art, just like coloring squares on graph paper!</p></details>
+        <details class="help-item"><summary>Does it work offline?</summary><p>Yes. Once loaded, everything runs in your browser with no internet needed.</p></details>
+        <details class="help-item"><summary>Can I play on my phone?</summary><p>Yes. Works on any device with a modern browser — phone, tablet, laptop, desktop. Touch and drag to paint!</p></details>
+        <details class="help-item"><summary>How do I change the theme?</summary><p>Click any theme button (🖥 🌌 🔥 etc.) in the controls bar.</p></details>
+        <details class="help-item"><summary>How do I change the language?</summary><p>Click EN / FR / ع. Arabic enables right-to-left layout automatically.</p></details>
+        <details class="help-item"><summary>What are templates?</summary><p>Pre-made outlines (star, heart, cat, etc.) shown as light gray guides on the grid. Pick one from the dropdown to get started!</p></details>
+        <details class="help-item"><summary>Is my data private?</summary><p>Yes. Everything runs locally in your browser. No data is sent anywhere.</p></details>
+    </div>
+    <div class="help-content" id="help-howto">
+        <div class="help-step"><span class="help-step-num">1</span><p>Click Start Mission on the splash screen</p></div>
+        <div class="help-step"><span class="help-step-num">2</span><p>Choose a grid size: Small (8x8), Medium (16x16), or Large (32x32)</p></div>
+        <div class="help-step"><span class="help-step-num">3</span><p>Optionally pick a template for a guided outline</p></div>
+        <div class="help-step"><span class="help-step-num">4</span><p>Click a color from the palette at the top</p></div>
+        <div class="help-step"><span class="help-step-num">5</span><p>Click or drag on the grid to paint pixels</p></div>
+        <div class="help-step"><span class="help-step-num">6</span><p>Use Fill tool to flood-fill an area, Erase to remove pixels</p></div>
+        <div class="help-step"><span class="help-step-num">7</span><p>Toggle grid lines with the Grid button</p></div>
+        <div class="help-step"><span class="help-step-num">8</span><p>Click Clear to start fresh, or pick a new template!</p></div>
+    </div>
+    <div class="help-content" id="help-wiki">
+        <div class="wiki-entry"><h3>🎨 Purpose</h3><p>Create pixel art masterpieces! Paint individual pixels on a grid to make characters, scenes, patterns, and more.</p></div>
+        <div class="wiki-entry"><h3>🖌 Tools</h3><p>Paint: click/drag to color pixels. Fill: flood-fill a connected area. Erase: remove pixel color. Clear: reset the entire grid.</p></div>
+        <div class="wiki-entry"><h3>🎨 Themes</h3><p>8 built-in themes: Terminal, Midnight, Ember, Phosphor, Signal, Redshift, Arctic, Sand.</p></div>
+        <div class="wiki-entry"><h3>🌐 Languages</h3><p>Trilingual: English, Fran&#231;ais, العربية. Arabic auto-enables RTL layout.</p></div>
+        <div class="wiki-entry"><h3>🔊 Sound</h3><p>Web Audio API — no files needed. Paint sounds, fill sounds, and clear sounds. Toggle with the sound button.</p></div>
+        <div class="wiki-entry"><h3>🔒 Privacy</h3><p>Local-first. No tracking, no analytics, no external calls. All data stays in your browser.</p></div>
+    </div>
+  </div>
+  <div class="sidebar-footer">Workshop-DIY — v1.0</div>
+</aside>
+
+<script>
+/* ── Sidebar ── */
+function openHelp(){document.getElementById("helpOverlay").classList.add("open");document.getElementById("helpPanel").classList.add("open");}
+function closeHelp(){document.getElementById("helpOverlay").classList.remove("open");document.getElementById("helpPanel").classList.remove("open");}
+
+/* ── Lang / Theme ── */
+function setLang(l){document.documentElement.lang=l;document.documentElement.dir=l==="ar"?"rtl":"ltr";document.querySelectorAll("[data-lang]").forEach(b=>b.classList.toggle("on",b.dataset.lang===l));}
+function setTheme(th){document.documentElement.dataset.theme=th;document.querySelectorAll("[data-thm]").forEach(b=>b.classList.toggle("on",b.dataset.thm===th));}
+
+/* ── Sound ── */
+let soundOn=true,actx;
+function snd(t){if(!soundOn)return;if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();const o=actx.createOscillator(),g=actx.createGain();o.connect(g);g.connect(actx.destination);g.gain.value=.04;const n=actx.currentTime;if(t==="paint"){o.frequency.value=600+Math.random()*200;o.type="sine";g.gain.exponentialRampToValueAtTime(.001,n+.04);o.start(n);o.stop(n+.04);}else if(t==="fill"){o.frequency.value=440;o.type="triangle";g.gain.exponentialRampToValueAtTime(.001,n+.15);o.start(n);o.stop(n+.15);const o2=actx.createOscillator(),g2=actx.createGain();o2.connect(g2);g2.connect(actx.destination);g2.gain.value=.03;o2.frequency.value=660;o2.type="triangle";g2.gain.exponentialRampToValueAtTime(.001,n+.2);o2.start(n+.1);o2.stop(n+.2);}else if(t==="erase"){o.frequency.value=300;o.type="sine";g.gain.exponentialRampToValueAtTime(.001,n+.05);o.start(n);o.stop(n+.05);}else if(t==="clear"){o.frequency.value=200;o.type="square";g.gain.value=.03;g.gain.exponentialRampToValueAtTime(.001,n+.2);o.start(n);o.stop(n+.2);}else{o.frequency.value=800;o.type="sine";g.gain.exponentialRampToValueAtTime(.001,n+.05);o.start(n);o.stop(n+.05);}}
+
+/* ── Log ── */
+function log(msg,cls){const b=document.getElementById("logBox");if(!b)return;const d=document.createElement("div");d.className="log-line "+(cls||"");d.textContent="["+new Date().toLocaleTimeString()+"] "+msg;b.appendChild(d);b.scrollTop=b.scrollHeight;}
+
+/* ── High Score (pixels painted record) ── */
+const HS_KEY="wdiy-hs-pixel-art";
+function loadHS(){try{return parseInt(localStorage.getItem(HS_KEY))||0}catch(e){return 0;}}
+function saveHS(score){try{const best=loadHS();if(score>best){localStorage.setItem(HS_KEY,score);return true;}}catch(e){}return false;}
+function showHS(){const best=loadHS();if(best>0){const pill=document.getElementById("scorePill");if(pill&&!pill.querySelector(".hs-badge"))pill.innerHTML+=' <span class="hs-badge">🏆 '+best+'</span>';}}
+function checkHS(){if(saveHS(paintedCount)){log("🏆 NEW RECORD: "+paintedCount+" pixels!","success");}}
+
+/* ── Colors ── */
+const COLORS=[
+  {name:"Black",hex:"#000000"},{name:"White",hex:"#ffffff"},
+  {name:"Red",hex:"#ff0000"},{name:"Blue",hex:"#0000ff"},
+  {name:"Green",hex:"#00aa00"},{name:"Yellow",hex:"#ffff00"},
+  {name:"Orange",hex:"#ff8800"},{name:"Purple",hex:"#8800cc"},
+  {name:"Pink",hex:"#ff66cc"},{name:"Brown",hex:"#885500"},
+  {name:"Gray",hex:"#888888"},{name:"Cyan",hex:"#00cccc"},
+  {name:"Lime",hex:"#44ff44"},{name:"Navy",hex:"#000088"},
+  {name:"Maroon",hex:"#880000"},{name:"Teal",hex:"#008888"}
+];
+
+/* ── Templates (pixel coords for 16x16; scaled to other grids) ── */
+const TEMPLATES={
+  star:[[8,2],[7,5],[8,5],[9,5],[4,6],[5,6],[6,6],[7,6],[8,6],[9,6],[10,6],[11,6],[5,7],[6,7],[7,7],[8,7],[9,7],[10,7],[6,8],[7,8],[8,8],[9,8],[5,9],[6,9],[7,9],[8,9],[9,9],[10,9],[4,10],[5,10],[10,10],[11,10],[3,11],[4,11],[11,11],[12,11]],
+  heart:[[4,4],[5,4],[6,4],[9,4],[10,4],[11,4],[3,5],[4,5],[5,5],[6,5],[7,5],[8,5],[9,5],[10,5],[11,5],[12,5],[3,6],[4,6],[5,6],[6,6],[7,6],[8,6],[9,6],[10,6],[11,6],[12,6],[3,7],[4,7],[5,7],[6,7],[7,7],[8,7],[9,7],[10,7],[11,7],[12,7],[4,8],[5,8],[6,8],[7,8],[8,8],[9,8],[10,8],[11,8],[5,9],[6,9],[7,9],[8,9],[9,9],[10,9],[6,10],[7,10],[8,10],[9,10],[7,11],[8,11]],
+  smiley:[[5,3],[6,3],[7,3],[8,3],[9,3],[10,3],[4,4],[5,4],[10,4],[11,4],[3,5],[11,5],[12,5],[3,6],[5,6],[6,6],[9,6],[10,6],[12,6],[3,7],[12,7],[3,8],[12,8],[3,9],[5,9],[10,9],[12,9],[4,10],[6,10],[7,10],[8,10],[9,10],[11,10],[5,11],[6,11],[7,11],[8,11],[9,11],[10,11]],
+  house:[[7,2],[8,2],[6,3],[7,3],[8,3],[9,3],[5,4],[6,4],[7,4],[8,4],[9,4],[10,4],[4,5],[5,5],[6,5],[7,5],[8,5],[9,5],[10,5],[11,5],[5,6],[6,6],[7,6],[8,6],[9,6],[10,6],[5,7],[6,7],[10,7],[5,8],[6,8],[7,8],[8,8],[9,8],[10,8],[5,9],[6,9],[7,9],[8,9],[9,9],[10,9],[5,10],[6,10],[7,10],[8,10],[9,10],[10,10],[5,11],[10,11],[7,11],[8,11]],
+  tree:[[7,1],[8,1],[6,2],[7,2],[8,2],[9,2],[5,3],[6,3],[7,3],[8,3],[9,3],[10,3],[6,4],[7,4],[8,4],[9,4],[5,5],[6,5],[7,5],[8,5],[9,5],[10,5],[4,6],[5,6],[6,6],[7,6],[8,6],[9,6],[10,6],[11,6],[5,7],[6,7],[7,7],[8,7],[9,7],[10,7],[4,8],[5,8],[6,8],[7,8],[8,8],[9,8],[10,8],[11,8],[3,9],[4,9],[5,9],[6,9],[7,9],[8,9],[9,9],[10,9],[11,9],[12,9],[7,10],[8,10],[7,11],[8,11],[7,12],[8,12]],
+  flower:[[7,2],[8,2],[6,3],[9,3],[5,4],[10,4],[5,5],[7,5],[8,5],[10,5],[6,6],[7,6],[8,6],[9,6],[5,7],[7,7],[8,7],[10,7],[5,8],[10,8],[6,9],[9,9],[7,10],[8,10],[7,11],[8,11],[7,12],[8,12],[6,13],[7,13],[8,13],[9,13]],
+  cat:[[4,2],[5,2],[10,2],[11,2],[4,3],[5,3],[6,3],[9,3],[10,3],[11,3],[4,4],[5,4],[6,4],[7,4],[8,4],[9,4],[10,4],[11,4],[4,5],[5,5],[6,5],[7,5],[8,5],[9,5],[10,5],[11,5],[4,6],[6,6],[9,6],[11,6],[4,7],[5,7],[6,7],[7,7],[8,7],[9,7],[10,7],[11,7],[5,8],[7,8],[8,8],[10,8],[5,9],[6,9],[7,9],[8,9],[9,9],[10,9],[6,10],[7,10],[8,10],[9,10]],
+  rocket:[[7,1],[8,1],[6,2],[7,2],[8,2],[9,2],[6,3],[7,3],[8,3],[9,3],[6,4],[7,4],[8,4],[9,4],[5,5],[6,5],[7,5],[8,5],[9,5],[10,5],[5,6],[6,6],[7,6],[8,6],[9,6],[10,6],[5,7],[6,7],[7,7],[8,7],[9,7],[10,7],[5,8],[6,8],[9,8],[10,8],[4,9],[5,9],[6,9],[9,9],[10,9],[11,9],[4,10],[5,10],[10,10],[11,10],[6,11],[7,11],[8,11],[9,11],[7,12],[8,12]]
+};
+
+/* ── State ── */
+let gridSize=16, grid=[], currentColor="#000000", currentTool="paint", showGrid=true, painting=false, paintedCount=0;
+const canvas=document.getElementById("artCanvas"), ctx=canvas.getContext("2d");
+
+function cellSize(){return Math.min(Math.floor((Math.min(window.innerWidth-64,560))/gridSize),32);}
+
+function initGrid(){
+  gridSize=parseInt(document.getElementById("gridSel").value);
+  const cs=cellSize();
+  canvas.width=gridSize*cs; canvas.height=gridSize*cs;
+  grid=[];
+  for(let y=0;y<gridSize;y++){grid[y]=[];for(let x=0;x<gridSize;x++)grid[y][x]="";}
+  paintedCount=0;
+  updateCount();
+  applyTemplate();
+  draw();
+  log("Canvas cleared — "+gridSize+"x"+gridSize+" grid","");
+}
+
+function applyTemplate(){
+  const tpl=document.getElementById("tmplSel").value;
+  if(!tpl||!TEMPLATES[tpl])return;
+  const src=TEMPLATES[tpl];
+  const scale=gridSize/16;
+  src.forEach(([x,y])=>{
+    const sx=Math.round(x*scale), sy=Math.round(y*scale);
+    if(sx>=0&&sx<gridSize&&sy>=0&&sy<gridSize) grid[sy][sx]="template";
+  });
+}
+
+function draw(){
+  const cs=cellSize();
+  canvas.width=gridSize*cs; canvas.height=gridSize*cs;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  // bg
+  ctx.fillStyle="#ffffff";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  for(let y=0;y<gridSize;y++){
+    for(let x=0;x<gridSize;x++){
+      const c=grid[y][x];
+      if(c==="template"){
+        ctx.fillStyle="#e0e0e0";
+        ctx.fillRect(x*cs,y*cs,cs,cs);
+      }else if(c){
+        ctx.fillStyle=c;
+        ctx.fillRect(x*cs,y*cs,cs,cs);
+      }
+    }
+  }
+  // grid lines
+  if(showGrid){
+    ctx.strokeStyle="rgba(0,0,0,0.15)";
+    ctx.lineWidth=1;
+    for(let i=0;i<=gridSize;i++){
+      ctx.beginPath();ctx.moveTo(i*cs,0);ctx.lineTo(i*cs,gridSize*cs);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(0,i*cs);ctx.lineTo(gridSize*cs,i*cs);ctx.stroke();
+    }
+  }
+}
+
+function getCell(e){
+  const rect=canvas.getBoundingClientRect();
+  const cs=cellSize();
+  let cx,cy;
+  if(e.touches){cx=e.touches[0].clientX;cy=e.touches[0].clientY;}
+  else{cx=e.clientX;cy=e.clientY;}
+  const x=Math.floor((cx-rect.left)/cs), y=Math.floor((cy-rect.top)/cs);
+  if(x<0||x>=gridSize||y<0||y>=gridSize)return null;
+  return{x,y};
+}
+
+function paintCell(x,y){
+  if(currentTool==="paint"){
+    if(grid[y][x]!==currentColor){
+      const wasPainted=grid[y][x]&&grid[y][x]!=="template";
+      grid[y][x]=currentColor;
+      if(!wasPainted)paintedCount++;
+      updateCount();
+      snd("paint");
+    }
+  }else if(currentTool==="erase"){
+    if(grid[y][x]&&grid[y][x]!=="template"){
+      grid[y][x]="";
+      paintedCount=Math.max(0,paintedCount-1);
+      updateCount();
+      snd("erase");
+    }else if(grid[y][x]==="template"){
+      grid[y][x]="";
+      snd("erase");
+    }
+  }else if(currentTool==="fill"){
+    floodFill(x,y,grid[y][x],currentColor);
+    snd("fill");
+    updateCount();
+  }
+  draw();
+}
+
+function floodFill(x,y,target,replacement){
+  if(target===replacement)return;
+  const stack=[[x,y]];
+  const visited=new Set();
+  while(stack.length){
+    const[cx,cy]=stack.pop();
+    const key=cx+","+cy;
+    if(visited.has(key))continue;
+    visited.add(key);
+    if(cx<0||cx>=gridSize||cy<0||cy>=gridSize)continue;
+    if(grid[cy][cx]!==target)continue;
+    const wasPainted=grid[cy][cx]&&grid[cy][cx]!=="template"&&grid[cy][cx]!=="";
+    grid[cy][cx]=replacement;
+    if(!wasPainted&&replacement&&replacement!=="template")paintedCount++;
+    stack.push([cx+1,cy],[cx-1,cy],[cx,cy+1],[cx,cy-1]);
+  }
+}
+
+function updateCount(){
+  document.getElementById("sc").textContent=paintedCount;
+  document.getElementById("tot").textContent=gridSize*gridSize;
+  document.getElementById("scorePill").textContent=paintedCount+" painted";
+  checkHS();
+  showHS();
+}
+
+/* ── Canvas Events ── */
+canvas.addEventListener("mousedown",function(e){e.preventDefault();painting=true;const c=getCell(e);if(c)paintCell(c.x,c.y);});
+canvas.addEventListener("mousemove",function(e){if(!painting)return;if(currentTool==="fill")return;const c=getCell(e);if(c)paintCell(c.x,c.y);});
+document.addEventListener("mouseup",function(){painting=false;});
+canvas.addEventListener("touchstart",function(e){e.preventDefault();painting=true;const c=getCell(e);if(c)paintCell(c.x,c.y);},{passive:false});
+canvas.addEventListener("touchmove",function(e){e.preventDefault();if(!painting)return;if(currentTool==="fill")return;const c=getCell(e);if(c)paintCell(c.x,c.y);},{passive:false});
+canvas.addEventListener("touchend",function(){painting=false;});
+
+/* ── Build Palette ── */
+function buildPalette(){
+  const pal=document.getElementById("palette");
+  pal.innerHTML="";
+  COLORS.forEach(c=>{
+    const b=document.createElement("button");
+    b.className="pal-btn"+(c.hex===currentColor?" on":"");
+    b.style.background=c.hex;
+    b.title=c.name;
+    if(c.hex==="#ffffff")b.style.border="2px solid #ccc";
+    b.onclick=function(){
+      currentColor=c.hex;
+      if(currentTool==="erase")setTool("paint");
+      document.querySelectorAll(".pal-btn").forEach(p=>p.classList.remove("on"));
+      b.classList.add("on");
+      document.getElementById("status").textContent="Color: "+c.name;
+      snd("click");
+    };
+    pal.appendChild(b);
+  });
+}
+
+function setTool(t){
+  currentTool=t;
+  document.getElementById("toolPaint").classList.toggle("active-tool",t==="paint");
+  document.getElementById("toolFill").classList.toggle("active-tool",t==="fill");
+  document.getElementById("toolErase").classList.toggle("active-tool",t==="erase");
+  const labels={paint:"Paint",fill:"Fill",erase:"Erase"};
+  document.getElementById("status").textContent="Tool: "+labels[t];
+  snd("click");
+}
+
+/* ── Init ── */
+document.addEventListener("DOMContentLoaded",function(){
+  setLang("en");setTheme("terminal");
+  document.querySelectorAll("[data-lang]").forEach(b=>b.addEventListener("click",function(){setLang(b.dataset.lang);snd("click");}));
+  document.querySelectorAll("[data-thm]").forEach(b=>b.addEventListener("click",function(){setTheme(b.dataset.thm);snd("click");}));
+  showHS();
+  buildPalette();
+
+  document.getElementById("enterBtn").addEventListener("click",function(){
+    document.querySelector(".splash").style.display="none";
+    document.getElementById("app").classList.add("on");
+    document.getElementById("backLink").style.display="block";
+    initGrid();
+    log("Welcome to Pixel Art! Pick a color and start painting.","success");
+  });
+
+  document.getElementById("gridSel").addEventListener("change",function(){initGrid();});
+  document.getElementById("tmplSel").addEventListener("change",function(){initGrid();});
+  document.getElementById("toolPaint").addEventListener("click",function(){setTool("paint");});
+  document.getElementById("toolFill").addEventListener("click",function(){setTool("fill");});
+  document.getElementById("toolErase").addEventListener("click",function(){setTool("erase");});
+  document.getElementById("btnClear").addEventListener("click",function(){
+    initGrid();
+    snd("clear");
+    log("Canvas cleared!","");
+  });
+  document.getElementById("gridToggle").addEventListener("click",function(){
+    showGrid=!showGrid;
+    draw();
+    snd("click");
+    log("Grid lines "+(showGrid?"ON":"OFF"),"");
+  });
+  document.getElementById("soundBtn").addEventListener("click",function(){
+    soundOn=!soundOn;
+    document.getElementById("soundBtn").textContent=soundOn?"🔊":"🔇";
+  });
+
+  // Help tabs
+  document.querySelectorAll(".help-tab").forEach(function(tab){
+    tab.addEventListener("click",function(){
+      document.querySelectorAll(".help-tab").forEach(function(t){t.classList.remove("active");});
+      document.querySelectorAll(".help-content").forEach(function(c){c.classList.remove("active");});
+      tab.classList.add("active");
+      document.getElementById("help-"+tab.dataset.tab).classList.add("active");
+    });
+  });
+
+  // Keyboard shortcuts
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape")closeHelp();
+    if(e.key==="p"||e.key==="P")setTool("paint");
+    if(e.key==="f"||e.key==="F")setTool("fill");
+    if(e.key==="e"||e.key==="E")setTool("erase");
+    if(e.key==="g"||e.key==="G"){showGrid=!showGrid;draw();}
+    if(e.key==="Enter"){
+      var go=document.getElementById("enterBtn");
+      if(go&&go.offsetParent!==null)go.click();
+    }
+  });
+
+  // Persist sound preference
+  try{if(localStorage.getItem("wdiy-mute")==="1"){soundOn=false;document.getElementById("soundBtn").textContent="🔇";}}catch(e){}
+  document.getElementById("soundBtn").addEventListener("click",function(){try{localStorage.setItem("wdiy-mute",soundOn?"0":"1");}catch(e){}});
+
+  // Persist theme and language
+  try{var _sl=localStorage.getItem("wdiy-lang");if(_sl)setLang(_sl);var _st=localStorage.getItem("wdiy-theme");if(_st)setTheme(_st);}catch(e){}
+  (function(){var _osl=setLang,_ost=setTheme;
+  setLang=function(l){_osl(l);try{localStorage.setItem("wdiy-lang",l);}catch(e){}};
+  setTheme=function(t){_ost(t);try{localStorage.setItem("wdiy-theme",t);}catch(e){}};})();
+
+  // Resize handler
+  window.addEventListener("resize",function(){draw();});
+});
+</script></body></html>

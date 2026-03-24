@@ -1,0 +1,13 @@
+# Lights Out
+
+**Toggle lights to turn them all off!**
+
+---
+
+## بِسْمِ ٱللَّٰهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+
+Based on: **Workshop-DIY**
+
+## 📄 License
+
+Workshop-DIY — [abourdim](https://github.com/abourdim)

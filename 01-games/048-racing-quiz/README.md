@@ -1,0 +1,15 @@
+# Racing Quiz
+
+**Test your racing game knowledge!**
+
+---
+
+## بِسْمِ ٱللَّٰهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+
+Based on: **SuperTuxKart**
+
+Part of [Workshop-DIY Kids Catalog](https://github.com/abourdim/ops-catalog-kids)
+
+## 📄 License
+
+Workshop-DIY — [abourdim](https://github.com/abourdim)

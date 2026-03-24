@@ -1,0 +1,13 @@
+# Reversi
+
+**Flip your opponent's pieces!**
+
+---
+
+## بِسْمِ ٱللَّٰهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+
+Based on: **Workshop-DIY**
+
+## 📄 License
+
+Workshop-DIY — [abourdim](https://github.com/abourdim)

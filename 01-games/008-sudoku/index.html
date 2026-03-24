@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="terminal">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Sudoku — Workshop-Diy</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Outfit:wght@400;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+[data-theme="terminal"]{--bg:#0a0c10;--bg2:#0d1117;--bg3:#161b22;--border:#21262d;--border2:#30363d;--text:#c9d1d9;--text2:#8b949e;--text3:#484f58;--heading:#e6edf3;--accent:#00ff88;--abg:rgba(0,255,136,.06);--abr:rgba(0,255,136,.2);--glow:0 0 20px rgba(0,255,136,.1)}
+[data-theme="midnight"]{--bg:#08090d;--bg2:#0e1018;--bg3:#171a26;--border:#1e2235;--border2:#2a2f45;--text:#b8c0d9;--text2:#7580a0;--text3:#4a5070;--heading:#e0e5f5;--accent:#6c5ce7;--abg:rgba(108,92,231,.06);--abr:rgba(108,92,231,.25);--glow:0 0 20px rgba(108,92,231,.1)}
+[data-theme="ember"]{--bg:#0f0a08;--bg2:#161010;--bg3:#201816;--border:#2d2220;--border2:#3d302c;--text:#d4b8a8;--text2:#9a7e70;--text3:#6a5448;--heading:#f0ddd0;--accent:#ff6b35;--abg:rgba(255,107,53,.06);--abr:rgba(255,107,53,.25);--glow:0 0 20px rgba(255,107,53,.1)}
+[data-theme="arctic"]{--bg:#f4f7fa;--bg2:#fff;--bg3:#eaeff5;--border:#d0d7e0;--border2:#b8c4d0;--text:#3a4555;--text2:#6b7a8d;--text3:#9aa8b8;--heading:#1a2535;--accent:#0066cc;--abg:rgba(0,102,204,.06);--abr:rgba(0,102,204,.2);--glow:0 0 15px rgba(0,102,204,.08)}
+[data-theme="phosphor"]{--bg:#001100;--bg2:#001a00;--bg3:#002200;--border:#003300;--border2:#004400;--text:#33cc33;--text2:#228822;--text3:#116611;--heading:#44ff44;--accent:#44ff44;--abg:rgba(68,255,68,.06);--abr:rgba(68,255,68,.2);--glow:0 0 25px rgba(68,255,68,.15)}
+[data-theme="signal"]{--bg:#0c0a14;--bg2:#110e1c;--bg3:#1a1628;--border:#252040;--border2:#352e55;--text:#c8b8e8;--text2:#8878b8;--text3:#5a4a80;--heading:#e8ddf8;--accent:#00e5ff;--abg:rgba(0,229,255,.06);--abr:rgba(0,229,255,.2);--glow:0 0 20px rgba(0,229,255,.1)}
+[data-theme="redshift"]{--bg:#100808;--bg2:#180c0c;--bg3:#221414;--border:#331a1a;--border2:#442222;--text:#d4a8a8;--text2:#9a6e6e;--text3:#6a4848;--heading:#f0cccc;--accent:#ff3355;--abg:rgba(255,51,85,.06);--abr:rgba(255,51,85,.25);--glow:0 0 20px rgba(255,51,85,.1)}
+[data-theme="sand"]{--bg:#f5f0e8;--bg2:#faf7f0;--bg3:#ede6d8;--border:#d8cebb;--border2:#c5b8a0;--text:#4a4035;--text2:#7a6e60;--text3:#a09585;--heading:#2a2018;--accent:#b8860b;--abg:rgba(184,134,11,.06);--abr:rgba(184,134,11,.2);--glow:0 0 15px rgba(184,134,11,.08)}
+body{background:var(--bg);color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:13px;min-height:100vh}
+[lang="ar"] body{font-family:'Noto Sans Arabic','IBM Plex Mono',monospace}
+h1,.heading{font-family:'Outfit','Noto Sans Arabic',sans-serif;color:var(--heading)}
+.splash .back-link,.splash~.back-link{opacity:0;pointer-events:none}
+.app.on~.back-link,.back-link{}
+.splash{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.splash-box{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:40px 32px;max-width:400px;width:100%;text-align:center;box-shadow:var(--glow);animation:fadeUp .5s}
+.splash-bism{color:var(--text3);font-size:12px;margin-bottom:14px}
+.btn-go{padding:12px 32px;background:var(--accent);color:var(--bg);border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;letter-spacing:1px;text-transform:uppercase}
+.sw{display:flex;gap:3px;justify-content:center;margin-top:14px;flex-wrap:wrap}
+.sw-btn{width:26px;height:26px;border-radius:6px;border:1px solid var(--border);background:none;color:var(--text2);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.sw-btn.on{background:var(--abg);border-color:var(--abr);color:var(--accent)}
+.sw-label{color:var(--text3);font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-right:6px;align-self:center}
+.app{display:none;max-width:480px;margin:0 auto;padding:12px 16px}.app.on{display:block}
+.hdr-bism{text-align:center;color:var(--text3);font-size:11px;margin-bottom:8px}
+.hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px}
+.hdr h1{font-size:18px}
+.pill{background:var(--abg);border:1px solid var(--abr);color:var(--accent);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.ctrl{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;align-items:center;justify-content:center}
+.ctrl select,.ctrl button{padding:6px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;color:var(--heading);font-size:11px;font-family:inherit;cursor:pointer}
+.ctrl button:hover{border-color:var(--abr)}
+.status{text-align:center;font-size:13px;margin-bottom:10px;font-weight:600;color:var(--heading);min-height:20px}
+.status.win{color:var(--accent)}.status.err{color:#ff4444}
+
+/* GRID */
+.grid{display:grid;gap:1px;max-width:360px;margin:0 auto 10px;background:var(--border);border:2px solid var(--heading);border-radius:4px}
+.grid.s4{grid-template-columns:repeat(4,1fr)}
+.grid.s9{grid-template-columns:repeat(9,1fr)}
+.gcell{background:var(--bg2);display:flex;align-items:center;justify-content:center;aspect-ratio:1;font-family:'Outfit',sans-serif;font-weight:700;cursor:pointer;transition:all .1s;position:relative}
+.grid.s4 .gcell{font-size:22px}
+.grid.s9 .gcell{font-size:16px}
+.gcell.given{color:var(--heading);cursor:default}
+.gcell.user{color:var(--accent)}
+.gcell.error{color:#ff4444;background:rgba(255,0,0,.08)}
+.gcell.selected{background:var(--abg);outline:2px solid var(--accent);z-index:1}
+.gcell.highlight{background:var(--abg)}
+/* Box borders for 9x9 */
+.grid.s9 .gcell:nth-child(3n){border-right:2px solid var(--heading)}
+.grid.s9 .gcell:nth-child(9n){border-right:none}
+.grid.s9 .gcell:nth-child(n+19):nth-child(-n+27){border-bottom:2px solid var(--heading)}
+.grid.s9 .gcell:nth-child(n+46):nth-child(-n+54){border-bottom:2px solid var(--heading)}
+/* Box borders for 4x4 */
+.grid.s4 .gcell:nth-child(2n){border-right:2px solid var(--heading)}
+.grid.s4 .gcell:nth-child(4n){border-right:none}
+.grid.s4 .gcell:nth-child(n+5):nth-child(-n+8){border-bottom:2px solid var(--heading)}
+
+/* Number pad */
+.numpad{display:flex;gap:4px;justify-content:center;margin:10px auto;flex-wrap:wrap;max-width:360px}
+.numpad button{width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:var(--bg2);color:var(--heading);font-family:'Outfit',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all .15s}
+.numpad button:hover{border-color:var(--accent);color:var(--accent)}
+.numpad button.active{background:var(--abg);border-color:var(--accent);color:var(--accent)}
+
+.log-box{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;max-height:80px;overflow-y:auto;font-size:10px;color:var(--text2);margin-bottom:10px}
+.log-line{padding:1px 0}.log-line.success{color:var(--accent)}.log-line.error{color:#ff4444}
+.foot{text-align:center;color:var(--text3);font-size:10px;padding:14px 0;border-top:1px solid var(--border)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.back-link{position:fixed;top:8px;left:8px;z-index:100;padding:4px 10px;border-radius:6px;background:var(--bg2);border:1px solid var(--border);color:var(--text2);font-size:11px;text-decoration:none;font-family:'Outfit',sans-serif;opacity:.7;transition:all .15s}.back-link:hover{opacity:1;border-color:var(--accent);color:var(--accent)}[dir="rtl"] .back-link{left:auto;right:8px}
+
+.sidebar-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .25s}
+.sidebar-overlay.open{opacity:1;pointer-events:auto}
+.sidebar{position:fixed;top:0;width:320px;max-width:85vw;height:100%;background:var(--bg2);border:1px solid var(--border);z-index:201;display:flex;flex-direction:column;transition:transform .25s ease}
+.sidebar-left{left:0;transform:translateX(-100%)}
+[dir="rtl"] .sidebar-left{left:auto;right:0;transform:translateX(100%)}
+.sidebar-left.open{transform:translateX(0)}
+.sidebar-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border)}
+.sidebar-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;color:var(--heading)}
+.btn-close{background:none;border:1px solid var(--border);color:var(--text2);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+.btn-close:hover{border-color:var(--accent);color:var(--accent)}
+.help-tabs{display:flex;border-bottom:1px solid var(--border)}
+.help-tab{flex:1;padding:8px;background:none;border:none;color:var(--text3);font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid transparent;transition:all .15s}
+.help-tab:hover{color:var(--text)}.help-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.sidebar-body{flex:1;overflow-y:auto;padding:14px 16px}
+.help-content{display:none}.help-content.active{display:block}
+.help-item{margin-bottom:8px;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.help-item summary{padding:10px 12px;cursor:pointer;font-size:12px;font-weight:600;color:var(--heading);list-style:none;display:flex;align-items:center;gap:6px}
+.help-item summary::before{content:"▸";color:var(--accent);font-size:10px;transition:transform .2s}
+.help-item[open] summary::before{transform:rotate(90deg)}
+.help-item p{padding:0 12px 10px;font-size:11px;color:var(--text2);line-height:1.6}
+.help-step{display:flex;gap:10px;margin-bottom:12px;align-items:flex-start}
+.help-step-num{width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--bg);font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.help-step p{font-size:11px;color:var(--text2);line-height:1.6;margin:0}
+.wiki-entry{margin-bottom:14px}.wiki-entry h3{font-size:13px;margin-bottom:4px;color:var(--heading)}.wiki-entry p{font-size:11px;color:var(--text2);line-height:1.6}
+.sidebar-footer{padding:10px 16px;border-top:1px solid var(--border);text-align:center;color:var(--text3);font-size:10px}
+.btn-help{background:none;border:1px solid var(--border);color:var(--text2);padding:6px 10px;border-radius:6px;font-size:11px;font-family:inherit;cursor:pointer}
+.btn-help:hover{border-color:var(--accent);color:var(--accent)}
+.hs-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:12px;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);color:gold;font-size:10px;font-weight:600;font-family:'Outfit',sans-serif;margin-left:6px}
+
+.timer-display{font-family:'Outfit',sans-serif;font-size:13px;color:var(--text2);text-align:center;margin-bottom:4px}
+.best-score{font-size:10px;color:var(--accent);text-align:center;margin-top:4px;opacity:.8}
+.help-btn{position:fixed;top:8px;right:8px;z-index:100;padding:4px 10px;border-radius:6px;background:var(--bg2);border:1px solid var(--border);color:var(--text2);font-size:13px;cursor:pointer;opacity:.7;transition:all .15s}
+.help-btn:hover{opacity:1;border-color:var(--accent);color:var(--accent)}
+[dir="rtl"] .help-btn{right:auto;left:8px}
+.help-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:200}
+.help-overlay.open{display:flex;align-items:center;justify-content:center}
+.help-box{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:24px;max-width:420px;width:90%;max-height:80vh;overflow-y:auto;color:var(--text);font-size:12px;line-height:1.7}
+.help-box h2{font-family:'Outfit',sans-serif;color:var(--heading);font-size:16px;margin-bottom:12px}
+.help-box h3{color:var(--accent);font-size:12px;margin:12px 0 4px;text-transform:uppercase;letter-spacing:1px}
+.help-box ul{padding-left:16px;margin:4px 0}
+.help-close{float:right;background:none;border:none;color:var(--text2);font-size:18px;cursor:pointer;padding:0 4px}
+.help-close:hover{color:var(--accent)}
+</style>
+</head>
+<body>
+<a href="../../index.html" class="back-link" id="backLink" style="display:none">← Catalog</a>
+<div class="splash" id="splash">
+<div class="splash-box">
+  <div class="splash-bism">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</div>
+  <h1 class="heading" style="font-size:22px;margin-bottom:4px">Sudoku</h1><span class="pill" id="scorePill">0/0</span>
+  <div style="color:var(--accent);font-size:12px;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px">GCompris</div>
+  <p style="color:var(--text2);font-size:11px;line-height:1.7;margin-bottom:24px">Fill the grid — every row, column and box must have each number exactly once.</p>
+  <button class="btn-go" id="enterBtn">Start Mission</button>
+  <div class="sw" style="margin-top:18px"><span class="sw-label">Lang</span><button class="sw-btn on" data-lang="en">EN</button><button class="sw-btn" data-lang="fr">FR</button><button class="sw-btn" data-lang="ar">ع</button></div>
+  <div class="sw" style="margin-top:6px"><span class="sw-label">Theme</span><button class="sw-btn on" data-thm="terminal">🖥</button><button class="sw-btn" data-thm="midnight">🌌</button><button class="sw-btn" data-thm="ember">🔥</button><button class="sw-btn" data-thm="phosphor">💚</button><button class="sw-btn" data-thm="signal">📡</button><button class="sw-btn" data-thm="redshift">🔴</button><button class="sw-btn" data-thm="arctic">❄️</button><button class="sw-btn" data-thm="sand">🏜</button></div>
+</div>
+</div>
+
+<div class="app" id="app">
+  <div class="hdr-bism">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</div>
+  <div class="hdr"><h1>Sudoku</h1><span class="pill" id="timerPill">0:00</span></div>
+  <div class="ctrl">
+    <select id="sizeSel"><option value="4">4×4 (Easy)</option><option value="9" selected>9×9 (Classic)</option></select>
+    <select id="diffSel"><option value="easy">Easy</option><option value="medium" selected>Medium</option><option value="hard">Hard</option></select>
+    <button id="startBtn">▶ New Game</button>
+    <button id="hintBtn">💡 Hint</button>
+    <button id="checkBtn">✔ Check</button>
+    <button class="btn-help" id="helpBtn" onclick="openHelp()">❓</button>
+    <button id="soundBtn">🔊</button>
+    <div class="sw"><button class="sw-btn on" data-lang="en">EN</button><button class="sw-btn" data-lang="fr">FR</button><button class="sw-btn" data-lang="ar">ع</button></div>
+    <div class="sw"><button class="sw-btn on" data-thm="terminal">🖥</button><button class="sw-btn" data-thm="midnight">🌌</button><button class="sw-btn" data-thm="ember">🔥</button><button class="sw-btn" data-thm="phosphor">💚</button><button class="sw-btn" data-thm="signal">📡</button><button class="sw-btn" data-thm="redshift">🔴</button><button class="sw-btn" data-thm="arctic">❄️</button><button class="sw-btn" data-thm="sand">🏜</button></div>
+  </div>
+  <div class="status" id="status">Select a cell, then press a number</div>
+  <div class="grid s9" id="grid"></div>
+  <div class="numpad" id="numpad"></div>
+  <div class="timer-display" id="timerDisp"></div>
+<div class="log-box" id="logBox"></div>
+  <div class="foot">Workshop-Diy — Sudoku v1.0</div>
+</div>
+
+
+<div class="sidebar-overlay" id="helpOverlay" onclick="closeHelp()"></div>
+<aside class="sidebar sidebar-left" id="helpPanel" aria-label="Help" role="dialog" aria-modal="true">
+  <div class="sidebar-header"><span class="sidebar-title">❓ Help</span><button class="btn-close" onclick="closeHelp()">✕</button></div>
+  <div class="help-tabs">
+    <button class="help-tab active" data-tab="faq">FAQ</button>
+    <button class="help-tab" data-tab="howto">How-To</button>
+    <button class="help-tab" data-tab="wiki">Wiki</button>
+  </div>
+  <div class="sidebar-body">
+    <div class="help-content active" id="help-faq">
+        <details class="help-item"><summary>What is Sudoku?</summary><p>Fill the grid. Every row, column, and box — each number exactly once.</p></details>
+        <details class="help-item"><summary>Does it work offline?</summary><p>Yes. Once loaded, everything runs in your browser with no internet needed.</p></details>
+        <details class="help-item"><summary>Can I play on my phone?</summary><p>Yes. Works on any device with a modern browser — phone, tablet, laptop, desktop.</p></details>
+        <details class="help-item"><summary>How do I change the theme?</summary><p>Click any theme button (🖥 🌌 🔥 etc.) in the controls bar.</p></details>
+        <details class="help-item"><summary>How do I change the language?</summary><p>Click EN / FR / ع. Arabic enables right-to-left layout automatically.</p></details>
+        <details class="help-item"><summary>Is my data private?</summary><p>Yes. Everything runs locally in your browser. No data is sent anywhere.</p></details>
+    </div>
+    <div class="help-content" id="help-howto">
+        <div class="help-step"><span class="help-step-num">1</span><p>Click Start Mission on the splash screen</p></div>
+        <div class="help-step"><span class="help-step-num">2</span><p>Choose your settings (difficulty, mode, etc.)</p></div>
+        <div class="help-step"><span class="help-step-num">3</span><p>Press ▶ New Game to begin</p></div>
+        <div class="help-step"><span class="help-step-num">4</span><p>Play the game — answer questions or interact with the game area</p></div>
+        <div class="help-step"><span class="help-step-num">5</span><p>Watch your score and progress bar</p></div>
+        <div class="help-step"><span class="help-step-num">6</span><p>Check the Activity Log for your history</p></div>
+        <div class="help-step"><span class="help-step-num">7</span><p>Press ▶ New Game to play again</p></div>
+        <div class="help-step"><span class="help-step-num">8</span><p>Click ← Catalog to go back and try another game</p></div>
+    </div>
+    <div class="help-content" id="help-wiki">
+        <div class="wiki-entry"><h3>🎯 Purpose</h3><p>Fill the grid. Every row, column, and box — each number exactly once.</p></div>
+        <div class="wiki-entry"><h3>📚 What You'll Learn</h3><p>Logic and deduction, number placement strategy, process of elimination, patience and focus.</p></div>
+        <div class="wiki-entry"><h3>🎨 Themes</h3><p>8 built-in themes: Terminal, Midnight, Ember, Phosphor, Signal, Redshift, Arctic, Sand.</p></div>
+        <div class="wiki-entry"><h3>🌐 Languages</h3><p>Trilingual: English, Français, العربية. Arabic auto-enables RTL layout.</p></div>
+        <div class="wiki-entry"><h3>🔊 Sound</h3><p>Web Audio API — no files needed. Correct = rising tone, wrong = buzz, win = melody. Toggle with 🔊 button.</p></div>
+        <div class="wiki-entry"><h3>🔗 Based On</h3><p>Open-source educational software. See README for credits.</p></div>
+        <div class="wiki-entry"><h3>🔒 Privacy</h3><p>Local-first. No tracking, no analytics, no external calls. All data stays in your browser.</p></div>
+    </div>
+  </div>
+  <div class="sidebar-footer">Workshop-DIY — v1.0</div>
+</aside>
+<script>function openHelp(){document.getElementById("helpOverlay").classList.add("open");document.getElementById("helpPanel").classList.add("open");}
+function closeHelp(){document.getElementById("helpOverlay").classList.remove("open");document.getElementById("helpPanel").classList.remove("open");}
+
+function setLang(l){document.documentElement.lang=l;document.documentElement.dir=l==="ar"?"rtl":"ltr";document.querySelectorAll("[data-lang]").forEach(b=>b.classList.toggle("on",b.dataset.lang===l));}
+function setTheme(th){document.documentElement.dataset.theme=th;document.querySelectorAll("[data-thm]").forEach(b=>b.classList.toggle("on",b.dataset.thm===th));}
+let soundOn=true,actx;
+function snd(t){if(!soundOn)return;if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();const o=actx.createOscillator(),g=actx.createGain();o.connect(g);g.connect(actx.destination);g.gain.value=.06;const n=actx.currentTime;if(t==="place"){o.frequency.value=700;o.type="sine";g.gain.exponentialRampToValueAtTime(.001,n+.06);o.start(n);o.stop(n+.06);}else if(t==="win"){[523,659,784,1047].forEach((f,i)=>{const oo=actx.createOscillator(),gg=actx.createGain();oo.connect(gg);gg.connect(actx.destination);gg.gain.value=.05;oo.frequency.value=f;oo.type="sine";gg.gain.exponentialRampToValueAtTime(.001,n+.2+i*.12);oo.start(n+i*.12);oo.stop(n+.2+i*.12);});}else if(t==="err"){o.frequency.value=200;o.type="square";g.gain.exponentialRampToValueAtTime(.001,n+.15);o.start(n);o.stop(n+.15);}}
+function log(msg,cls=""){const b=document.getElementById("logBox");const d=document.createElement("div");d.className="log-line "+cls;d.textContent=`[${new Date().toLocaleTimeString()}] ${msg}`;b.appendChild(d);b.scrollTop=b.scrollHeight;}
+
+/* ═══════ SUDOKU ENGINE ═══════ */
+let size,solution,puzzle,userGrid,selected,timer,seconds,gameOver;
+
+function generate9(){
+  const g=Array.from({length:81},()=>0);
+  function valid(g,r,c,n){
+    for(let i=0;i<9;i++){if(g[r*9+i]===n||g[i*9+c]===n)return false;}
+    const br=Math.floor(r/3)*3,bc=Math.floor(c/3)*3;
+    for(let i=br;i<br+3;i++)for(let j=bc;j<bc+3;j++)if(g[i*9+j]===n)return false;
+    return true;
+  }
+  function fill(pos){
+    if(pos===81)return true;
+    const r=Math.floor(pos/9),c=pos%9;
+    const nums=[1,2,3,4,5,6,7,8,9].sort(()=>Math.random()-.5);
+    for(const n of nums){if(valid(g,r,c,n)){g[pos]=n;if(fill(pos+1))return true;g[pos]=0;}}
+    return false;
+  }
+  fill(0);return g;
+}
+
+function generate4(){
+  const g=Array(16).fill(0);
+  function valid(g,r,c,n){
+    for(let i=0;i<4;i++){if(g[r*4+i]===n||g[i*4+c]===n)return false;}
+    const br=Math.floor(r/2)*2,bc=Math.floor(c/2)*2;
+    for(let i=br;i<br+2;i++)for(let j=bc;j<bc+2;j++)if(g[i*4+j]===n)return false;
+    return true;
+  }
+  function fill(pos){
+    if(pos===16)return true;
+    const r=Math.floor(pos/4),c=pos%4;
+    const nums=[1,2,3,4].sort(()=>Math.random()-.5);
+    for(const n of nums){if(valid(g,r,c,n)){g[pos]=n;if(fill(pos+1))return true;g[pos]=0;}}
+    return false;
+  }
+  fill(0);return g;
+}
+
+function removeCells(sol,sz,diff){
+  const p=[...sol];const total=sz*sz;
+  const remove={easy:sz===9?35:6,medium:sz===9?45:8,hard:sz===9?54:10}[diff];
+  let removed=0;const indices=[...Array(total).keys()].sort(()=>Math.random()-.5);
+  for(const i of indices){if(removed>=remove)break;p[i]=0;removed++;}
+  return p;
+}
+
+function newGame(){
+  size=parseInt(document.getElementById("sizeSel").value);
+  const diff=document.getElementById("diffSel").value;
+  solution=size===9?generate9():generate4();
+  puzzle=removeCells(solution,size,diff);
+  userGrid=[...puzzle];selected=-1;gameOver=false;
+  seconds=0;clearInterval(timer);
+  timer=setInterval(()=>{if(!gameOver){seconds++;document.getElementById("timerPill").textContent=`${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,"0")}`;}},1000);
+  document.getElementById("timerPill").textContent="0:00";
+  const gEl=document.getElementById("grid");gEl.className="grid s"+size;
+  renderGrid();renderNumpad();
+  document.getElementById("status").textContent="Select a cell, then press a number";
+  document.getElementById("status").className="status";
+  log("🎮 New "+size+"×"+size+" Sudoku ("+diff+")","success");
+}
+
+function renderGrid(){
+  const g=document.getElementById("grid");g.innerHTML="";
+  const total=size*size;
+  for(let i=0;i<total;i++){
+    const cell=document.createElement("div");
+    const isGiven=puzzle[i]!==0;
+    cell.className="gcell"+(isGiven?" given":"")+(userGrid[i]&&!isGiven?" user":"")+(i===selected?" selected":"");
+    cell.textContent=userGrid[i]||"";
+    if(!isGiven){cell.onclick=()=>{selected=i;renderGrid();snd("place");};}
+    g.appendChild(cell);
+  }
+}
+
+function renderNumpad(){
+  const np=document.getElementById("numpad");np.innerHTML="";
+  const max=size;
+  for(let n=1;n<=max;n++){
+    const btn=document.createElement("button");btn.textContent=n;
+    btn.onclick=()=>placeNum(n);np.appendChild(btn);
+  }
+  const clr=document.createElement("button");clr.textContent="✕";clr.style.color="#ff4444";
+  clr.onclick=()=>placeNum(0);np.appendChild(clr);
+}
+
+function placeNum(n){
+  if(selected<0||gameOver)return;
+  if(puzzle[selected]!==0)return;
+  userGrid[selected]=n;snd("place");renderGrid();
+  // Auto-check if full
+  if(userGrid.every(v=>v!==0))checkSolution();
+}
+
+function checkSolution(){
+  let errors=0;
+  const cells=document.querySelectorAll(".gcell");
+  for(let i=0;i<size*size;i++){
+    if(puzzle[i]===0&&userGrid[i]!==solution[i]){cells[i].classList.add("error");errors++;}
+  }
+  if(errors===0&&userGrid.every(v=>v!==0)){
+    gameOver=true;clearInterval(timer);
+    document.getElementById("status").textContent="🏆 Solved!";
+    document.getElementById("status").className="status win";
+    snd("win");log("🏆 Solved in "+document.getElementById("timerPill").textContent,"success");
+  }else if(errors>0){
+    document.getElementById("status").textContent=errors+" error"+(errors>1?"s":"")+" found";
+    document.getElementById("status").className="status err";
+    snd("err");log(errors+" errors found","error");
+    setTimeout(()=>{document.querySelectorAll(".gcell.error").forEach(c=>c.classList.remove("error"));},1500);
+  }
+}
+
+function giveHint(){
+  if(gameOver)return;
+  const empty=[];for(let i=0;i<size*size;i++){if(userGrid[i]===0)empty.push(i);}
+  if(empty.length===0)return;
+  const idx=empty[Math.floor(Math.random()*empty.length)];
+  userGrid[idx]=solution[idx];puzzle[idx]=solution[idx];// make it "given"
+  snd("place");renderGrid();log("💡 Hint: cell revealed","success");
+  if(userGrid.every(v=>v!==0))checkSolution();
+}
+
+
+// High Score
+const HS_KEY="wdiy-hs-sudoku";
+function loadHS(){try{return parseInt(localStorage.getItem(HS_KEY))||0}catch(e){return 0;}}
+function saveHS(score){try{const best=loadHS();if(score>best){localStorage.setItem(HS_KEY,score);return true;}}catch(e){}return false;}
+function showHS(){const best=loadHS();if(best>0){const pill=document.getElementById("scorePill");if(pill)pill.innerHTML+=' <span class="hs-badge">🏆 '+best+'</span>';}}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  setLang("en");setTheme("terminal");
+  document.querySelectorAll("[data-lang]").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
+  document.querySelectorAll("[data-thm]").forEach(b=>b.addEventListener("click",()=>setTheme(b.dataset.thm)));
+  showHS();
+  document.getElementById("enterBtn").addEventListener("click",()=>{document.querySelector(".splash").style.display="none";document.getElementById("app").classList.add("on");document.getElementById("backLink").style.display="block";newGame();});
+  document.getElementById("startBtn").addEventListener("click",newGame);
+  document.getElementById("hintBtn").addEventListener("click",giveHint);
+  document.getElementById("checkBtn").addEventListener("click",checkSolution);
+  document.getElementById("soundBtn").addEventListener("click",()=>{soundOn=!soundOn;document.getElementById("soundBtn").textContent=soundOn?"🔊":"🔇";});
+  document.addEventListener("keydown",e=>{
+    const n=parseInt(e.key);
+    if(n>=1&&n<=size)placeNum(n);
+    if(e.key==="Backspace"||e.key==="Delete")placeNum(0);
+  });
+
+
+
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeHelp();});
+document.querySelectorAll(".help-tab").forEach(function(tab){tab.addEventListener("click",function(){document.querySelectorAll(".help-tab").forEach(function(t){t.classList.remove("active");});document.querySelectorAll(".help-content").forEach(function(c){c.classList.remove("active");});tab.classList.add("active");document.getElementById("help-"+tab.dataset.tab).classList.add("active");});});
+});
+
+// Timer
+let timerInterval,timerSeconds=0;
+function startTimer(){timerSeconds=0;clearInterval(timerInterval);timerInterval=setInterval(()=>{timerSeconds++;const m=Math.floor(timerSeconds/60),s=timerSeconds%60;const el=document.getElementById("timerDisp");if(el)el.textContent="⏱ "+(m>0?m+"m ":"")+s+"s";},1000);}
+function stopTimer(){clearInterval(timerInterval);}
+
+// High Score
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){const o=document.getElementById("helpOverlay");if(o)o.classList.remove("open");}});
+
+// Persist sound preference
+try{if(localStorage.getItem("wdiy-mute")==="1"){soundOn=false;var sb=document.getElementById("soundBtn");if(sb)sb.textContent="🔇";}}catch(e){}
+var _origSoundClick=document.getElementById("soundBtn");
+if(_origSoundClick){_origSoundClick.addEventListener("click",function(){try{localStorage.setItem("wdiy-mute",soundOn?"0":"1");}catch(e){}});}
+
+// Persist theme and language
+try{var _sl=localStorage.getItem("wdiy-lang");if(_sl)setLang(_sl);var _st=localStorage.getItem("wdiy-theme");if(_st)setTheme(_st);}catch(e){}
+(function(){var _osl=setLang,_ost=setTheme;
+setLang=function(l){_osl(l);try{localStorage.setItem("wdiy-lang",l);}catch(e){}};
+setTheme=function(t){_ost(t);try{localStorage.setItem("wdiy-theme",t);}catch(e){}};})();
+</script>
+</body>
+</html>

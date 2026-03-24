@@ -1,0 +1,13 @@
+# Mixed Operations
+
+**Solve with order of operations!**
+
+---
+
+## بِسْمِ ٱللَّٰهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+
+Based on: **Workshop-DIY**
+
+## 📄 License
+
+Workshop-DIY — [abourdim](https://github.com/abourdim)

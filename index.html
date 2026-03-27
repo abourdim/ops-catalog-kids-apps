@@ -1,317 +1,72 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr" data-theme="terminal">
-<head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Workshop-DIY — Kids Apps</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Outfit:wght@400;600;700;800&family=Noto+Sans+Arabic:wght@400;600;700&display=swap" rel="stylesheet"/>
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{min-height:100vh;-webkit-font-smoothing:antialiased}
-
-[data-theme="terminal"]{--bg:#0a0c10;--bg2:#0d1117;--bg3:#161b22;--border:#21262d;--text:#c9d1d9;--text2:#8b949e;--heading:#e6edf3;--accent:#00ff88;--abg:rgba(0,255,136,.06);--abr:rgba(0,255,136,.2)}
-[data-theme="midnight"]{--bg:#08090d;--bg2:#0e1018;--bg3:#171a26;--border:#1e2235;--text:#b8c0d9;--text2:#7580a0;--heading:#e0e5f5;--accent:#6c5ce7;--abg:rgba(108,92,231,.06);--abr:rgba(108,92,231,.25)}
-[data-theme="ember"]{--bg:#0f0a08;--bg2:#161010;--bg3:#201816;--border:#2d2220;--text:#d4b8a8;--text2:#9a7e70;--heading:#f0ddd0;--accent:#ff6b35;--abg:rgba(255,107,53,.06);--abr:rgba(255,107,53,.25)}
-[data-theme="arctic"]{--bg:#f4f7fa;--bg2:#fff;--bg3:#eaeff5;--border:#d0d7e0;--text:#3a4555;--text2:#6b7a8d;--heading:#1a2535;--accent:#0066cc;--abg:rgba(0,102,204,.06);--abr:rgba(0,102,204,.2)}
-[data-theme="sand"]{--bg:#f5f0e8;--bg2:#faf7f0;--bg3:#ede6d8;--border:#d8cebb;--text:#4a4035;--text2:#7a6e60;--heading:#2a2018;--accent:#b8860b;--abg:rgba(184,134,11,.06);--abr:rgba(184,134,11,.2)}
-
-body{background:var(--bg);color:var(--text);font-family:'IBM Plex Mono',monospace;padding:20px}
-.header{text-align:center;padding:40px 0 20px}
-.header h1{font-family:'Outfit',sans-serif;color:var(--heading);font-size:28px;margin-bottom:8px}
-.header p{color:var(--text2);font-size:14px;max-width:600px;margin:0 auto}
-.search{display:block;width:100%;max-width:500px;margin:20px auto;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:14px;outline:none}
-.search:focus{border-color:var(--accent)}
-.filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:20px 0;max-width:800px;margin-left:auto;margin-right:auto}
-.filter-btn{background:var(--bg2);border:1px solid var(--border);color:var(--text2);padding:6px 14px;border-radius:20px;cursor:pointer;font-family:inherit;font-size:12px}
-.filter-btn.active,.filter-btn:hover{background:var(--abg);border-color:var(--accent);color:var(--accent)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;max-width:1200px;margin:20px auto}
-.card{display:flex;align-items:center;gap:12px;padding:14px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;text-decoration:none;color:var(--text);transition:.2s}
-.card:hover{border-color:var(--accent);background:var(--abg)}
-.card-emoji{font-size:24px;flex-shrink:0}
-.card-title{font-size:13px;color:var(--heading);flex:1}
-.card-cat{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:1px}
-.themes{display:flex;gap:6px;justify-content:center;margin:20px 0}
-.themes button{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);cursor:pointer}
-.count{text-align:center;color:var(--text2);font-size:12px;margin:10px 0}
-.foot{text-align:center;color:var(--text2);font-size:11px;padding:40px 0 20px}
-.foot a{color:var(--accent)}
-</style>
-</head>
-<body>
-<div class="header">
-<h1>199 Interactive Educational Games</h1>
-
-<p>Real games — chess, sudoku, TuxMath, piano, drawing, typing, maze, coding. Not quizzes.</p>
-</div>
-
-<div class="themes">
-<button onclick="setTheme('terminal')" style="background:#00ff88" title="Terminal"></button>
-<button onclick="setTheme('midnight')" style="background:#6c5ce7" title="Midnight"></button>
-<button onclick="setTheme('ember')" style="background:#ff6b35" title="Ember"></button>
-<button onclick="setTheme('arctic')" style="background:#0066cc" title="Arctic"></button>
-<button onclick="setTheme('sand')" style="background:#b8860b" title="Sand"></button>
-</div>
-
-<input class="search" type="text" placeholder="Search 199 activities..." id="search"/>
-
-<div class="filters" id="filters">
-<button class="filter-btn active" data-cat="all">All</button>
-<button class="filter-btn" data-cat="Games">🎮 Games</button>
-<button class="filter-btn" data-cat="Math">🔢 Math</button>
-<button class="filter-btn" data-cat="Science">🔬 Science</button>
-<button class="filter-btn" data-cat="Geography">🌍 Geography</button>
-<button class="filter-btn" data-cat="English">📖 English</button>
-<button class="filter-btn" data-cat="French">🇫🇷 French</button>
-<button class="filter-btn" data-cat="History">🏛️ History</button>
-<button class="filter-btn" data-cat="Coding">💻 Coding</button>
-<button class="filter-btn" data-cat="Arts">🎨 Arts</button>
-<button class="filter-btn" data-cat="Life Skills">🌟 Life Skills</button>
-
-</div>
-
-<div class="count" id="count">199 activities</div>
-
-<div class="grid" id="grid">
-<a href="01-games/001-tuxmath/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Tuxmath</span><span class="card-cat">Games</span></a>
-<a href="01-games/002-fish-cascade/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Fish Cascade</span><span class="card-cat">Games</span></a>
-<a href="01-games/003-blinken/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Blinken</span><span class="card-cat">Games</span></a>
-<a href="01-games/004-memory/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Memory</span><span class="card-cat">Games</span></a>
-<a href="01-games/005-khangman/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Khangman</span><span class="card-cat">Games</span></a>
-<a href="01-games/006-align-four/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Align Four</span><span class="card-cat">Games</span></a>
-<a href="01-games/007-tic-tac-toe/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Tic Tac Toe</span><span class="card-cat">Games</span></a>
-<a href="01-games/008-sudoku/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Sudoku</span><span class="card-cat">Games</span></a>
-<a href="01-games/009-tower-of-hanoi/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Tower Of Hanoi</span><span class="card-cat">Games</span></a>
-<a href="01-games/010-bar-game/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Bar Game</span><span class="card-cat">Games</span></a>
-<a href="01-games/011-balance-scales/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Balance Scales</span><span class="card-cat">Games</span></a>
-<a href="01-games/012-calcudoku/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Calcudoku</span><span class="card-cat">Games</span></a>
-<a href="01-games/013-guess-24/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Guess 24</span><span class="card-cat">Games</span></a>
-<a href="01-games/014-submarine/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Submarine</span><span class="card-cat">Games</span></a>
-<a href="01-games/015-binary/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Binary</span><span class="card-cat">Games</span></a>
-<a href="01-games/016-chess/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Chess</span><span class="card-cat">Games</span></a>
-<a href="01-games/017-oware/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Oware</span><span class="card-cat">Games</span></a>
-<a href="01-games/018-logic-puzzle/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Logic Puzzle</span><span class="card-cat">Games</span></a>
-<a href="01-games/019-word-analogy/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Word Analogy</span><span class="card-cat">Games</span></a>
-<a href="01-games/020-traffic-jam/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Traffic Jam</span><span class="card-cat">Games</span></a>
-<a href="01-games/021-letters/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Letters</span><span class="card-cat">Games</span></a>
-<a href="01-games/022-falling-words/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Falling Words</span><span class="card-cat">Games</span></a>
-<a href="01-games/023-typing-tutor/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Typing Tutor</span><span class="card-cat">Games</span></a>
-<a href="01-games/024-keyboard-learn/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Keyboard Learn</span><span class="card-cat">Games</span></a>
-<a href="01-games/025-drawing/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Drawing</span><span class="card-cat">Games</span></a>
-<a href="01-games/026-paintings/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Paintings</span><span class="card-cat">Games</span></a>
-<a href="01-games/027-morse-code/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Morse Code</span><span class="card-cat">Games</span></a>
-<a href="01-games/028-mental-calc/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Mental Calc</span><span class="card-cat">Games</span></a>
-<a href="01-games/029-maze/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Maze</span><span class="card-cat">Games</span></a>
-<a href="01-games/030-colors/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Colors</span><span class="card-cat">Games</span></a>
-<a href="01-games/031-shapes/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Shapes</span><span class="card-cat">Games</span></a>
-<a href="01-games/032-click-me/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Click Me</span><span class="card-cat">Games</span></a>
-<a href="01-games/033-mouse-training/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Mouse Training</span><span class="card-cat">Games</span></a>
-<a href="01-games/034-balance-box/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Balance Box</span><span class="card-cat">Games</span></a>
-<a href="01-games/035-braille/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Braille</span><span class="card-cat">Games</span></a>
-<a href="01-games/036-categorize/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Categorize</span><span class="card-cat">Games</span></a>
-<a href="01-games/037-click-on-letter/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Click On Letter</span><span class="card-cat">Games</span></a>
-<a href="01-games/038-crane/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Crane</span><span class="card-cat">Games</span></a>
-<a href="01-games/039-free-drawing/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Free Drawing</span><span class="card-cat">Games</span></a>
-<a href="01-games/040-follow-line/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Follow Line</span><span class="card-cat">Games</span></a>
-<a href="01-games/041-pattern-memory/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Pattern Memory</span><span class="card-cat">Games</span></a>
-<a href="01-games/042-typing-speed/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Typing Speed</span><span class="card-cat">Games</span></a>
-<a href="01-games/043-face-maker/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Face Maker</span><span class="card-cat">Games</span></a>
-<a href="01-games/044-turtle-logo/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Turtle Logo</span><span class="card-cat">Games</span></a>
-<a href="01-games/045-physics-puzzle/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Physics Puzzle</span><span class="card-cat">Games</span></a>
-<a href="01-games/046-supertux-quiz/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Supertux Quiz</span><span class="card-cat">Games</span></a>
-<a href="01-games/047-racing-quiz/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Racing Quiz</span><span class="card-cat">Games</span></a>
-<a href="01-games/048-tux-racer/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Tux Racer</span><span class="card-cat">Games</span></a>
-<a href="01-games/049-frogatto-quiz/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Frogatto Quiz</span><span class="card-cat">Games</span></a>
-<a href="01-games/050-train-puzzle/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Train Puzzle</span><span class="card-cat">Games</span></a>
-<a href="01-games/051-code-routes/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Code Routes</span><span class="card-cat">Games</span></a>
-<a href="01-games/052-coding-game/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Coding Game</span><span class="card-cat">Games</span></a>
-<a href="01-games/053-visual-coding/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Visual Coding</span><span class="card-cat">Games</span></a>
-<a href="01-games/054-bam-bam/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Bam Bam</span><span class="card-cat">Games</span></a>
-<a href="01-games/055-mouse-click/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Mouse Click</span><span class="card-cat">Games</span></a>
-<a href="01-games/056-first-mouse/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">First Mouse</span><span class="card-cat">Games</span></a>
-<a href="01-games/057-minesweeper/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Minesweeper</span><span class="card-cat">Games</span></a>
-<a href="01-games/058-15-puzzle/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">15 Puzzle</span><span class="card-cat">Games</span></a>
-<a href="01-games/059-lights-out/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Lights Out</span><span class="card-cat">Games</span></a>
-<a href="01-games/060-dots-boxes/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Dots Boxes</span><span class="card-cat">Games</span></a>
-<a href="01-games/061-battleship/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Battleship</span><span class="card-cat">Games</span></a>
-<a href="01-games/062-mastermind/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Mastermind</span><span class="card-cat">Games</span></a>
-<a href="01-games/063-checkers/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Checkers</span><span class="card-cat">Games</span></a>
-<a href="01-games/064-reversi/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Reversi</span><span class="card-cat">Games</span></a>
-<a href="01-games/065-big-small/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Big Small</span><span class="card-cat">Games</span></a>
-<a href="01-games/066-patterns-first/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Patterns First</span><span class="card-cat">Games</span></a>
-<a href="01-games/067-left-right/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Left Right</span><span class="card-cat">Games</span></a>
-<a href="01-games/068-up-down/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Up Down</span><span class="card-cat">Games</span></a>
-<a href="01-games/069-word-search/index.html" class="card" data-cat="Games"><span class="card-emoji">🎮</span><span class="card-title">Word Search</span><span class="card-cat">Games</span></a>
-<a href="02-math/001-addition/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Addition</span><span class="card-cat">Math</span></a>
-<a href="02-math/002-subtraction/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Subtraction</span><span class="card-cat">Math</span></a>
-<a href="02-math/003-multiplication/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Multiplication</span><span class="card-cat">Math</span></a>
-<a href="02-math/004-division/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Division</span><span class="card-cat">Math</span></a>
-<a href="02-math/005-fractions/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Fractions</span><span class="card-cat">Math</span></a>
-<a href="02-math/006-money/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Money</span><span class="card-cat">Math</span></a>
-<a href="02-math/007-decimals/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Decimals</span><span class="card-cat">Math</span></a>
-<a href="02-math/008-tens-complement/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Tens Complement</span><span class="card-cat">Math</span></a>
-<a href="02-math/009-clock/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Clock</span><span class="card-cat">Math</span></a>
-<a href="02-math/010-calendar/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Calendar</span><span class="card-cat">Math</span></a>
-<a href="02-math/011-weights/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Weights</span><span class="card-cat">Math</span></a>
-<a href="02-math/012-counting/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Counting</span><span class="card-cat">Math</span></a>
-<a href="02-math/013-compare-numbers/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Compare Numbers</span><span class="card-cat">Math</span></a>
-<a href="02-math/014-fractions-drill/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Fractions Drill</span><span class="card-cat">Math</span></a>
-<a href="02-math/015-algebra/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Algebra</span><span class="card-cat">Math</span></a>
-<a href="02-math/016-geometry/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Geometry</span><span class="card-cat">Math</span></a>
-<a href="02-math/017-number-line/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Number Line</span><span class="card-cat">Math</span></a>
-<a href="02-math/018-place-value/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Place Value</span><span class="card-cat">Math</span></a>
-<a href="02-math/019-roman-numerals/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Roman Numerals</span><span class="card-cat">Math</span></a>
-<a href="02-math/020-percentages/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Percentages</span><span class="card-cat">Math</span></a>
-<a href="02-math/021-prime-numbers/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Prime Numbers</span><span class="card-cat">Math</span></a>
-<a href="02-math/022-square-roots/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Square Roots</span><span class="card-cat">Math</span></a>
-<a href="02-math/023-negative-numbers/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Negative Numbers</span><span class="card-cat">Math</span></a>
-<a href="02-math/024-number-bonds/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Number Bonds</span><span class="card-cat">Math</span></a>
-<a href="02-math/025-skip-counting/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Skip Counting</span><span class="card-cat">Math</span></a>
-<a href="02-math/026-odd-even/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Odd Even</span><span class="card-cat">Math</span></a>
-<a href="02-math/027-factors/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Factors</span><span class="card-cat">Math</span></a>
-<a href="02-math/028-number-patterns/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Number Patterns</span><span class="card-cat">Math</span></a>
-<a href="02-math/029-mixed-operations/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Mixed Operations</span><span class="card-cat">Math</span></a>
-<a href="02-math/030-measurement-tools/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Measurement Tools</span><span class="card-cat">Math</span></a>
-<a href="02-math/031-times-tables/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Times Tables</span><span class="card-cat">Math</span></a>
-<a href="02-math/032-speed-math/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Speed Math</span><span class="card-cat">Math</span></a>
-<a href="02-math/033-money-math/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Money Math</span><span class="card-cat">Math</span></a>
-<a href="02-math/034-telling-time/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Telling Time</span><span class="card-cat">Math</span></a>
-<a href="02-math/035-area-perimeter/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Area Perimeter</span><span class="card-cat">Math</span></a>
-<a href="02-math/036-volume-3d/index.html" class="card" data-cat="Math"><span class="card-emoji">🔢</span><span class="card-title">Volume 3D</span><span class="card-cat">Math</span></a>
-<a href="03-science/001-solar-system/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Solar System</span><span class="card-cat">Science</span></a>
-<a href="03-science/002-water-cycle/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Water Cycle</span><span class="card-cat">Science</span></a>
-<a href="03-science/003-electricity/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Electricity</span><span class="card-cat">Science</span></a>
-<a href="03-science/004-gravity/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Gravity</span><span class="card-cat">Science</span></a>
-<a href="03-science/005-renewable-energy/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Renewable Energy</span><span class="card-cat">Science</span></a>
-<a href="03-science/006-elements/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Elements</span><span class="card-cat">Science</span></a>
-<a href="03-science/007-constellations/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Constellations</span><span class="card-cat">Science</span></a>
-<a href="03-science/008-space-explorer/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Space Explorer</span><span class="card-cat">Science</span></a>
-<a href="03-science/009-physics-sim/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Physics Sim</span><span class="card-cat">Science</span></a>
-<a href="03-science/010-human-body/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Human Body</span><span class="card-cat">Science</span></a>
-<a href="03-science/011-animal-classes/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Animal Classes</span><span class="card-cat">Science</span></a>
-<a href="03-science/012-plants/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Plants</span><span class="card-cat">Science</span></a>
-<a href="03-science/013-weather/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Weather</span><span class="card-cat">Science</span></a>
-<a href="03-science/014-volcanoes/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Volcanoes</span><span class="card-cat">Science</span></a>
-<a href="03-science/015-dinosaurs/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Dinosaurs</span><span class="card-cat">Science</span></a>
-<a href="03-science/016-magnets/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Magnets</span><span class="card-cat">Science</span></a>
-<a href="03-science/017-sound-waves/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Sound Waves</span><span class="card-cat">Science</span></a>
-<a href="03-science/018-light-colors/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Light Colors</span><span class="card-cat">Science</span></a>
-<a href="03-science/019-rocks-minerals/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Rocks Minerals</span><span class="card-cat">Science</span></a>
-<a href="03-science/020-food-chain/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Food Chain</span><span class="card-cat">Science</span></a>
-<a href="03-science/021-ecosystems/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Ecosystems</span><span class="card-cat">Science</span></a>
-<a href="03-science/022-punctuation/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Punctuation</span><span class="card-cat">Science</span></a>
-<a href="03-science/023-encryption/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Encryption</span><span class="card-cat">Science</span></a>
-<a href="03-science/024-famous-scientists/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Famous Scientists</span><span class="card-cat">Science</span></a>
-<a href="03-science/025-animal-records/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Animal Records</span><span class="card-cat">Science</span></a>
-<a href="03-science/026-space-missions/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Space Missions</span><span class="card-cat">Science</span></a>
-<a href="03-science/027-emotions/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Emotions</span><span class="card-cat">Science</span></a>
-<a href="03-science/028-inventions/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Inventions</span><span class="card-cat">Science</span></a>
-<a href="03-science/029-nutrition/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Nutrition</span><span class="card-cat">Science</span></a>
-<a href="03-science/030-five-senses/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Five Senses</span><span class="card-cat">Science</span></a>
-<a href="03-science/031-simple-machines/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Simple Machines</span><span class="card-cat">Science</span></a>
-<a href="03-science/032-body-parts/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Body Parts</span><span class="card-cat">Science</span></a>
-<a href="03-science/033-circuit-builder/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Circuit Builder</span><span class="card-cat">Science</span></a>
-<a href="03-science/034-solar-system/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Solar System</span><span class="card-cat">Science</span></a>
-<a href="03-science/035-human-body/index.html" class="card" data-cat="Science"><span class="card-emoji">🔬</span><span class="card-title">Human Body</span><span class="card-cat">Science</span></a>
-<a href="04-geography/001-geography/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Geography</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/002-flags/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Flags</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/003-world-atlas/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">World Atlas</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/004-map-quiz/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Map Quiz</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/005-oceans/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Oceans</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/006-capitals/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Capitals</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/007-rivers/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Rivers</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/008-mountains/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Mountains</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/009-landmarks/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Landmarks</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/010-languages-world/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Languages World</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/011-currencies/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Currencies</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/012-time-zones/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Time Zones</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/013-continents/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Continents</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/014-world-wonders/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">World Wonders</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/015-rainforest/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Rainforest</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/016-arctic/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Arctic</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/017-map-skills/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Map Skills</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/018-map-quiz/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Map Quiz</span><span class="card-cat">Geography</span></a>
-<a href="04-geography/019-flag-match/index.html" class="card" data-cat="Geography"><span class="card-emoji">🌍</span><span class="card-title">Flag Match</span><span class="card-cat">Geography</span></a>
-<a href="05-english/001-alphabet-sequence/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Alphabet Sequence</span><span class="card-cat">English</span></a>
-<a href="05-english/002-grammar/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Grammar</span><span class="card-cat">English</span></a>
-<a href="05-english/003-reading/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Reading</span><span class="card-cat">English</span></a>
-<a href="05-english/004-letter-in-word/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Letter In Word</span><span class="card-cat">English</span></a>
-<a href="05-english/005-vocabulary/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Vocabulary</span><span class="card-cat">English</span></a>
-<a href="05-english/006-spelling-bee/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Spelling Bee</span><span class="card-cat">English</span></a>
-<a href="05-english/007-synonyms/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Synonyms</span><span class="card-cat">English</span></a>
-<a href="05-english/008-antonyms/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Antonyms</span><span class="card-cat">English</span></a>
-<a href="05-english/009-rhyming/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Rhyming</span><span class="card-cat">English</span></a>
-<a href="05-english/010-compound-words/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Compound Words</span><span class="card-cat">English</span></a>
-<a href="05-english/011-prefixes/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Prefixes</span><span class="card-cat">English</span></a>
-<a href="05-english/012-suffixes/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Suffixes</span><span class="card-cat">English</span></a>
-<a href="05-english/013-plurals/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Plurals</span><span class="card-cat">English</span></a>
-<a href="05-english/014-sentence-order/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Sentence Order</span><span class="card-cat">English</span></a>
-<a href="05-english/015-homophones/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Homophones</span><span class="card-cat">English</span></a>
-<a href="05-english/016-story-sequence/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Story Sequence</span><span class="card-cat">English</span></a>
-<a href="05-english/017-math-word-problems/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Math Word Problems</span><span class="card-cat">English</span></a>
-<a href="05-english/018-word-search/index.html" class="card" data-cat="English"><span class="card-emoji">📖</span><span class="card-title">Word Search</span><span class="card-cat">English</span></a>
-<a href="06-french/001-french-words/index.html" class="card" data-cat="French"><span class="card-emoji">🇫🇷</span><span class="card-title">French Words</span><span class="card-cat">French</span></a>
-<a href="07-history/001-timeline/index.html" class="card" data-cat="History"><span class="card-emoji">🏛️</span><span class="card-title">Timeline</span><span class="card-cat">History</span></a>
-<a href="09-coding/001-anagram/index.html" class="card" data-cat="Coding"><span class="card-emoji">💻</span><span class="card-title">Anagram</span><span class="card-cat">Coding</span></a>
-<a href="09-coding/002-programming-maze/index.html" class="card" data-cat="Coding"><span class="card-emoji">💻</span><span class="card-title">Programming Maze</span><span class="card-cat">Coding</span></a>
-<a href="09-coding/003-memory-sound/index.html" class="card" data-cat="Coding"><span class="card-emoji">💻</span><span class="card-title">Memory Sound</span><span class="card-cat">Coding</span></a>
-<a href="09-coding/004-tangram/index.html" class="card" data-cat="Coding"><span class="card-emoji">💻</span><span class="card-title">Tangram</span><span class="card-cat">Coding</span></a>
-<a href="09-coding/005-memory-case/index.html" class="card" data-cat="Coding"><span class="card-emoji">💻</span><span class="card-title">Memory Case</span><span class="card-cat">Coding</span></a>
-<a href="09-coding/006-memory-math/index.html" class="card" data-cat="Coding"><span class="card-emoji">💻</span><span class="card-title">Memory Math</span><span class="card-cat">Coding</span></a>
-<a href="09-coding/007-ascii/index.html" class="card" data-cat="Coding"><span class="card-emoji">💻</span><span class="card-title">Ascii</span><span class="card-cat">Coding</span></a>
-<a href="09-coding/008-sorting/index.html" class="card" data-cat="Coding"><span class="card-emoji">💻</span><span class="card-title">Sorting</span><span class="card-cat">Coding</span></a>
-<a href="09-coding/009-data-types/index.html" class="card" data-cat="Coding"><span class="card-emoji">💻</span><span class="card-title">Data Types</span><span class="card-cat">Coding</span></a>
-<a href="09-coding/010-regex-basics/index.html" class="card" data-cat="Coding"><span class="card-emoji">💻</span><span class="card-title">Regex Basics</span><span class="card-cat">Coding</span></a>
-<a href="09-coding/011-coding-concepts/index.html" class="card" data-cat="Coding"><span class="card-emoji">💻</span><span class="card-title">Coding Concepts</span><span class="card-cat">Coding</span></a>
-<a href="09-coding/012-logic-gates/index.html" class="card" data-cat="Coding"><span class="card-emoji">💻</span><span class="card-title">Logic Gates</span><span class="card-cat">Coding</span></a>
-<a href="09-coding/013-algorithm-sort/index.html" class="card" data-cat="Coding"><span class="card-emoji">💻</span><span class="card-title">Algorithm Sort</span><span class="card-cat">Coding</span></a>
-<a href="10-arts/001-flowcharts/index.html" class="card" data-cat="Arts"><span class="card-emoji">🎨</span><span class="card-title">Flowcharts</span><span class="card-cat">Arts</span></a>
-<a href="10-arts/002-pixel-art/index.html" class="card" data-cat="Arts"><span class="card-emoji">🎨</span><span class="card-title">Pixel Art</span><span class="card-cat">Arts</span></a>
-<a href="10-arts/003-color-mixer/index.html" class="card" data-cat="Arts"><span class="card-emoji">🎨</span><span class="card-title">Color Mixer</span><span class="card-cat">Arts</span></a>
-<a href="10-arts/004-pattern-maker/index.html" class="card" data-cat="Arts"><span class="card-emoji">🎨</span><span class="card-title">Pattern Maker</span><span class="card-cat">Arts</span></a>
-<a href="12-life-skills/001-safety/index.html" class="card" data-cat="Life Skills"><span class="card-emoji">🌟</span><span class="card-title">Safety</span><span class="card-cat">Life Skills</span></a>
-<a href="12-life-skills/002-good-manners/index.html" class="card" data-cat="Life Skills"><span class="card-emoji">🌟</span><span class="card-title">Good Manners</span><span class="card-cat">Life Skills</span></a>
-<a href="12-life-skills/003-clock-trainer/index.html" class="card" data-cat="Life Skills"><span class="card-emoji">🌟</span><span class="card-title">Clock Trainer</span><span class="card-cat">Life Skills</span></a>
-</div>
-
-<div class="foot">
-Workshop-DIY — <a href="https://github.com/abourdim">abourdim</a>
-</div>
-
-<script>
-function setTheme(t){document.documentElement.dataset.theme=t;localStorage.setItem("theme",t)}
-const saved=localStorage.getItem("theme");if(saved)setTheme(saved);
-
-const search=document.getElementById("search");
-const grid=document.getElementById("grid");
-const cards=[...grid.querySelectorAll(".card")];
-const countEl=document.getElementById("count");
-let activeCat="all";
-
-document.getElementById("filters").addEventListener("click",e=>{
-  if(!e.target.classList.contains("filter-btn"))return;
-  document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
-  e.target.classList.add("active");
-  activeCat=e.target.dataset.cat;
-  filter();
-});
-
-search.addEventListener("input",filter);
-
-function filter(){
-  const q=search.value.toLowerCase();
-  let shown=0;
-  cards.forEach(c=>{
-    const title=c.querySelector(".card-title").textContent.toLowerCase();
-    const cat=c.dataset.cat;
-    const matchQ=!q||title.includes(q);
-    const matchCat=activeCat==="all"||cat===activeCat;
-    const show=matchQ&&matchCat;
-    c.style.display=show?"":"none";
-    if(show)shown++;
-  });
-  countEl.textContent=shown+" activit"+(shown===1?"y":"ies");
-}
-</script>
-</body>
-</html>
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>تطبيقات تعليمية للأطفال</title><link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Noto Naskh Arabic','Amiri',sans-serif;background:#0A1628;color:#E8E0D0;min-height:100vh}.header{text-align:center;padding:2.5rem 1rem 1.5rem;background:linear-gradient(180deg,#0F1F3A,#0A1628);border-bottom:2px solid #C5A02833}.header h1{font-family:'Amiri',serif;font-size:2.4rem;color:#C5A028;text-shadow:0 2px 8px #C5A02844;margin-bottom:.4rem}.header .bismillah{font-family:'Amiri',serif;color:#C5A028aa;font-size:1.2rem;margin-bottom:1rem}.header .count{color:#888;font-size:.95rem}.filters{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem;padding:1rem;max-width:900px;margin:0 auto}.cat-btn{background:#1A2A44;border:1px solid #C5A02833;color:#C5A028;padding:.45rem 1rem;border-radius:20px;cursor:pointer;font-family:'Noto Naskh Arabic',sans-serif;font-size:.85rem;transition:all .2s}.cat-btn:hover,.cat-btn.active{background:#C5A028;color:#0A1628;font-weight:700}.search-box{display:block;margin:1rem auto;padding:.7rem 1.2rem;width:90%;max-width:500px;border-radius:25px;border:1px solid #C5A02844;background:#0F1F3A;color:#E8E0D0;font-family:'Noto Naskh Arabic',sans-serif;font-size:1rem;text-align:center}.search-box::placeholder{color:#555}.search-box:focus{outline:none;border-color:#C5A028;box-shadow:0 0 15px #C5A02833}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;padding:1.5rem;max-width:1200px;margin:0 auto}.card{display:flex;flex-direction:column;align-items:center;gap:.5rem;padding:1.1rem .8rem;background:linear-gradient(135deg,#111D30,#0F1928);border:1px solid #1A2A44;border-radius:14px;text-decoration:none;color:#E8E0D0;transition:all .25s;cursor:pointer}.card:hover{background:#1A2A44;border-color:#C5A028;transform:translateY(-4px);box-shadow:0 8px 24px #C5A02822}.card-emoji{font-size:2rem}.card-title{font-size:.88rem;font-weight:600;text-align:center;line-height:1.4;min-height:2.5em;display:flex;align-items:center}.card-cat{font-size:.7rem;color:#C5A028;background:#C5A02812;padding:2px 12px;border-radius:10px}.footer{text-align:center;padding:2rem;color:#444;font-size:.8rem;border-top:1px solid #1A2A44;margin-top:2rem}@media(max-width:600px){.grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.8rem;padding:1rem}.header h1{font-size:1.7rem}}</style></head><body><div class="header"><div class="bismillah">بِسْمِ ٱللَّٰهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ</div><h1>✨ تطبيقات تعليمية للأطفال ✨</h1><div class="count" id="count">64 نشاط تعليمي</div></div><input type="text" class="search-box" id="search" placeholder="🔍 ابحث عن نشاط..."><div class="filters" id="filters"><button class="cat-btn active" data-cat="all">الكل</button>
+<button class="cat-btn" data-cat="Games">🎮 ألعاب تعليمية</button>
+<button class="cat-btn" data-cat="Math">🔢 الرياضيات</button>
+<button class="cat-btn" data-cat="Science">🔬 العلوم</button>
+<button class="cat-btn" data-cat="Geography">🌍 الجغرافيا</button>
+<button class="cat-btn" data-cat="English">🔤 الإنجليزية</button>
+<button class="cat-btn" data-cat="Coding">💻 البرمجة</button>
+</div><div class="grid" id="grid"><a href="01-games/057-minesweeper/index.html" class="card" data-cat="Games" data-en="minesweeper"><span class="card-emoji">🎮</span><span class="card-title">كاسحة الألغام — ورشة-أمالون</span><span class="card-cat">ألعاب تعليمية</span></a>
+<a href="01-games/058-15-puzzle/index.html" class="card" data-cat="Games" data-en="15 puzzle"><span class="card-emoji">🎮</span><span class="card-title">لغز الـ15 — ورشة-أمالون</span><span class="card-cat">ألعاب تعليمية</span></a>
+<a href="01-games/059-lights-out/index.html" class="card" data-cat="Games" data-en="lights out"><span class="card-emoji">🎮</span><span class="card-title">أطفئ الأنوار — ورشة-أمالون</span><span class="card-cat">ألعاب تعليمية</span></a>
+<a href="01-games/060-dots-boxes/index.html" class="card" data-cat="Games" data-en="dots boxes"><span class="card-emoji">🎮</span><span class="card-title">النقاط والمربعات — ورشة-أمالون</span><span class="card-cat">ألعاب تعليمية</span></a>
+<a href="01-games/061-battleship/index.html" class="card" data-cat="Games" data-en="battleship"><span class="card-emoji">🎮</span><span class="card-title">سفن الأسطول — ورشة-أمالون</span><span class="card-cat">ألعاب تعليمية</span></a>
+<a href="01-games/062-mastermind/index.html" class="card" data-cat="Games" data-en="mastermind"><span class="card-emoji">🎮</span><span class="card-title">العقل المدبّر — ورشة-أمالون</span><span class="card-cat">ألعاب تعليمية</span></a>
+<a href="01-games/063-checkers/index.html" class="card" data-cat="Games" data-en="checkers"><span class="card-emoji">🎮</span><span class="card-title">الداما — ورشة-أمالون</span><span class="card-cat">ألعاب تعليمية</span></a>
+<a href="01-games/064-reversi/index.html" class="card" data-cat="Games" data-en="reversi"><span class="card-emoji">🎮</span><span class="card-title">ريفرسي — ورشة-أمالون</span><span class="card-cat">ألعاب تعليمية</span></a>
+<a href="01-games/065-big-small/index.html" class="card" data-cat="Games" data-en="big small"><span class="card-emoji">🎮</span><span class="card-title">كبير أم صغير — ورشة-أمالون</span><span class="card-cat">ألعاب تعليمية</span></a>
+<a href="01-games/066-patterns-first/index.html" class="card" data-cat="Games" data-en="patterns first"><span class="card-emoji">🎮</span><span class="card-title">الأنماط البسيطة — ورشة-أمالون</span><span class="card-cat">ألعاب تعليمية</span></a>
+<a href="01-games/067-left-right/index.html" class="card" data-cat="Games" data-en="left right"><span class="card-emoji">🎮</span><span class="card-title">يمين أم يسار — ورشة-أمالون</span><span class="card-cat">ألعاب تعليمية</span></a>
+<a href="01-games/068-up-down/index.html" class="card" data-cat="Games" data-en="up down"><span class="card-emoji">🎮</span><span class="card-title">فوق وتحت — ورشة-أمالون</span><span class="card-cat">ألعاب تعليمية</span></a>
+<a href="01-games/069-word-search/index.html" class="card" data-cat="Games" data-en="word search"><span class="card-emoji">🎮</span><span class="card-title">تحدي الكلمات — ورشة-أمالون</span><span class="card-cat">ألعاب تعليمية</span></a>
+<a href="02-math/030-measurement-tools/index.html" class="card" data-cat="Math" data-en="measurement tools"><span class="card-emoji">🔢</span><span class="card-title">أدوات القياس — معمل الرياضيات</span><span class="card-cat">الرياضيات</span></a>
+<a href="02-math/031-times-tables/index.html" class="card" data-cat="Math" data-en="times tables"><span class="card-emoji">🔢</span><span class="card-title">جدول الضرب — معمل الرياضيات</span><span class="card-cat">الرياضيات</span></a>
+<a href="02-math/032-speed-math/index.html" class="card" data-cat="Math" data-en="speed math"><span class="card-emoji">🔢</span><span class="card-title">الحساب السريع — معمل الرياضيات</span><span class="card-cat">الرياضيات</span></a>
+<a href="02-math/033-money-math/index.html" class="card" data-cat="Math" data-en="money math"><span class="card-emoji">🔢</span><span class="card-title">حساب التسوق — معمل الرياضيات</span><span class="card-cat">الرياضيات</span></a>
+<a href="02-math/034-telling-time/index.html" class="card" data-cat="Math" data-en="telling time"><span class="card-emoji">🔢</span><span class="card-title">قراءة الساعة — معمل الرياضيات</span><span class="card-cat">الرياضيات</span></a>
+<a href="02-math/035-area-perimeter/index.html" class="card" data-cat="Math" data-en="area perimeter"><span class="card-emoji">🔢</span><span class="card-title">المساحة والمحيط — معمل الرياضيات</span><span class="card-cat">الرياضيات</span></a>
+<a href="02-math/036-volume-3d/index.html" class="card" data-cat="Math" data-en="volume 3d"><span class="card-emoji">🔢</span><span class="card-title">الأشكال ثلاثية الأبعاد — معمل الرياضيات</span><span class="card-cat">الرياضيات</span></a>
+<a href="03-science/010-human-body/index.html" class="card" data-cat="Science" data-en="human body"><span class="card-emoji">🔬</span><span class="card-title">جسم الإنسان — مختبر العلوم</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/012-plants/index.html" class="card" data-cat="Science" data-en="plants"><span class="card-emoji">🔬</span><span class="card-title">النباتات — مختبر العلوم</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/013-weather/index.html" class="card" data-cat="Science" data-en="weather"><span class="card-emoji">🔬</span><span class="card-title">الطقس — مختبر العلوم</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/014-volcanoes/index.html" class="card" data-cat="Science" data-en="volcanoes"><span class="card-emoji">🔬</span><span class="card-title">البراكين — مختبر العلوم</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/015-dinosaurs/index.html" class="card" data-cat="Science" data-en="dinosaurs"><span class="card-emoji">🔬</span><span class="card-title">الديناصورات — مختبر العلوم</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/016-magnets/index.html" class="card" data-cat="Science" data-en="magnets"><span class="card-emoji">🔬</span><span class="card-title">المغناطيس — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/017-sound-waves/index.html" class="card" data-cat="Science" data-en="sound waves"><span class="card-emoji">🔬</span><span class="card-title">الموجات الصوتية — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/018-light-colors/index.html" class="card" data-cat="Science" data-en="light colors"><span class="card-emoji">🔬</span><span class="card-title">الضوء والألوان — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/019-rocks-minerals/index.html" class="card" data-cat="Science" data-en="rocks minerals"><span class="card-emoji">🔬</span><span class="card-title">الصخور والمعادن — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/020-food-chain/index.html" class="card" data-cat="Science" data-en="food chain"><span class="card-emoji">🔬</span><span class="card-title">السلسلة الغذائية — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/021-ecosystems/index.html" class="card" data-cat="Science" data-en="ecosystems"><span class="card-emoji">🔬</span><span class="card-title">الأنظمة البيئية — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/022-punctuation/index.html" class="card" data-cat="Science" data-en="punctuation"><span class="card-emoji">🔬</span><span class="card-title">علامات الترقيم — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/023-encryption/index.html" class="card" data-cat="Science" data-en="encryption"><span class="card-emoji">🔬</span><span class="card-title">الرموز السرية — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/024-famous-scientists/index.html" class="card" data-cat="Science" data-en="famous scientists"><span class="card-emoji">🔬</span><span class="card-title">علماء مشهورون — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/025-animal-records/index.html" class="card" data-cat="Science" data-en="animal records"><span class="card-emoji">🔬</span><span class="card-title">أرقام قياسية للحيوانات — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/026-space-missions/index.html" class="card" data-cat="Science" data-en="space missions"><span class="card-emoji">🔬</span><span class="card-title">مهمات الفضاء — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/027-emotions/index.html" class="card" data-cat="Science" data-en="emotions"><span class="card-emoji">🔬</span><span class="card-title">المشاعر — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/028-inventions/index.html" class="card" data-cat="Science" data-en="inventions"><span class="card-emoji">🔬</span><span class="card-title">اختراعات عظيمة — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/029-nutrition/index.html" class="card" data-cat="Science" data-en="nutrition"><span class="card-emoji">🔬</span><span class="card-title">التغذية الصحية — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/030-five-senses/index.html" class="card" data-cat="Science" data-en="five senses"><span class="card-emoji">🔬</span><span class="card-title">الحواس الخمس — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/031-simple-machines/index.html" class="card" data-cat="Science" data-en="simple machines"><span class="card-emoji">🔬</span><span class="card-title">الآلات البسيطة — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="03-science/032-body-parts/index.html" class="card" data-cat="Science" data-en="body parts"><span class="card-emoji">🔬</span><span class="card-title">أعضاء الجسم — أملون</span><span class="card-cat">العلوم</span></a>
+<a href="04-geography/005-oceans/index.html" class="card" data-cat="Geography" data-en="oceans"><span class="card-emoji">🌍</span><span class="card-title">المحيطات — ورشة-DIY</span><span class="card-cat">الجغرافيا</span></a>
+<a href="04-geography/006-capitals/index.html" class="card" data-cat="Geography" data-en="capitals"><span class="card-emoji">🌍</span><span class="card-title">عواصم العالم — ورشة-DIY</span><span class="card-cat">الجغرافيا</span></a>
+<a href="04-geography/007-rivers/index.html" class="card" data-cat="Geography" data-en="rivers"><span class="card-emoji">🌍</span><span class="card-title">أنهار العالم — ورشة-DIY</span><span class="card-cat">الجغرافيا</span></a>
+<a href="04-geography/008-mountains/index.html" class="card" data-cat="Geography" data-en="mountains"><span class="card-emoji">🌍</span><span class="card-title">الجبال — ورشة-DIY</span><span class="card-cat">الجغرافيا</span></a>
+<a href="04-geography/009-landmarks/index.html" class="card" data-cat="Geography" data-en="landmarks"><span class="card-emoji">🌍</span><span class="card-title">معالم العالم — ورشة-DIY</span><span class="card-cat">الجغرافيا</span></a>
+<a href="04-geography/010-languages-world/index.html" class="card" data-cat="Geography" data-en="languages world"><span class="card-emoji">🌍</span><span class="card-title">لغات العالم — ورشة-DIY</span><span class="card-cat">الجغرافيا</span></a>
+<a href="04-geography/011-currencies/index.html" class="card" data-cat="Geography" data-en="currencies"><span class="card-emoji">🌍</span><span class="card-title">عملات العالم — ورشة-DIY</span><span class="card-cat">الجغرافيا</span></a>
+<a href="04-geography/012-time-zones/index.html" class="card" data-cat="Geography" data-en="time zones"><span class="card-emoji">🌍</span><span class="card-title">المناطق الزمنية — ورشة-DIY</span><span class="card-cat">الجغرافيا</span></a>
+<a href="04-geography/013-continents/index.html" class="card" data-cat="Geography" data-en="continents"><span class="card-emoji">🌍</span><span class="card-title">القارات — ورشة-DIY</span><span class="card-cat">الجغرافيا</span></a>
+<a href="04-geography/014-world-wonders/index.html" class="card" data-cat="Geography" data-en="world wonders"><span class="card-emoji">🌍</span><span class="card-title">عجائب العالم — ورشة-DIY</span><span class="card-cat">الجغرافيا</span></a>
+<a href="04-geography/015-rainforest/index.html" class="card" data-cat="Geography" data-en="rainforest"><span class="card-emoji">🌍</span><span class="card-title">الغابات المطيرة — ورشة-DIY</span><span class="card-cat">الجغرافيا</span></a>
+<a href="04-geography/016-arctic/index.html" class="card" data-cat="Geography" data-en="arctic"><span class="card-emoji">🌍</span><span class="card-title">القطب الشمالي والجنوبي — ورشة-DIY</span><span class="card-cat">الجغرافيا</span></a>
+<a href="04-geography/017-map-skills/index.html" class="card" data-cat="Geography" data-en="map skills"><span class="card-emoji">🌍</span><span class="card-title">مهارات الخرائط — ورشة-DIY</span><span class="card-cat">الجغرافيا</span></a>
+<a href="05-english/014-sentence-order/index.html" class="card" data-cat="English" data-en="sentence order"><span class="card-emoji">🔤</span><span class="card-title">بناء الجمل — ورشة عمل</span><span class="card-cat">الإنجليزية</span></a>
+<a href="05-english/015-homophones/index.html" class="card" data-cat="English" data-en="homophones"><span class="card-emoji">🔤</span><span class="card-title">الكلمات المتشابهة — ورشة عمل</span><span class="card-cat">الإنجليزية</span></a>
+<a href="05-english/016-story-sequence/index.html" class="card" data-cat="English" data-en="story sequence"><span class="card-emoji">🔤</span><span class="card-title">تسلسل القصة — ورشة عمل</span><span class="card-cat">الإنجليزية</span></a>
+<a href="05-english/017-math-word-problems/index.html" class="card" data-cat="English" data-en="math word problems"><span class="card-emoji">🔤</span><span class="card-title">مسائل كلامية — ورشة عمل</span><span class="card-cat">الإنجليزية</span></a>
+<a href="09-coding/007-ascii/index.html" class="card" data-cat="Coding" data-en="ascii"><span class="card-emoji">💻</span><span class="card-title">رموز ASCII — ورشة عمل</span><span class="card-cat">البرمجة</span></a>
+<a href="09-coding/008-sorting/index.html" class="card" data-cat="Coding" data-en="sorting"><span class="card-emoji">💻</span><span class="card-title">خوارزميات الترتيب — ورشة عمل</span><span class="card-cat">البرمجة</span></a>
+<a href="09-coding/009-data-types/index.html" class="card" data-cat="Coding" data-en="data types"><span class="card-emoji">💻</span><span class="card-title">أنواع البيانات — ورشة عمل</span><span class="card-cat">البرمجة</span></a>
+<a href="09-coding/010-regex-basics/index.html" class="card" data-cat="Coding" data-en="regex basics"><span class="card-emoji">💻</span><span class="card-title">مطابقة الأنماط — ورشة عمل</span><span class="card-cat">البرمجة</span></a>
+<a href="09-coding/011-coding-concepts/index.html" class="card" data-cat="Coding" data-en="coding concepts"><span class="card-emoji">💻</span><span class="card-title">مفاهيم البرمجة — ورشة عمل</span><span class="card-cat">البرمجة</span></a>
+</div><div class="footer">أمالون — Workshop-DIY — الإصدار ٢.٠</div><script>const grid=document.getElementById("grid"),cards=[...grid.querySelectorAll(".card")],search=document.getElementById("search"),countEl=document.getElementById("count"),btns=[...document.querySelectorAll(".cat-btn")];let activeCat="all";function filter(){const q=search.value.toLowerCase();let n=0;cards.forEach(c=>{const cat=c.dataset.cat,title=c.querySelector(".card-title").textContent.toLowerCase(),catName=c.querySelector(".card-cat").textContent.toLowerCase(),enName=(c.dataset.en||"").toLowerCase(),matchCat=activeCat==="all"||cat===activeCat,matchQ=!q||title.includes(q)||catName.includes(q)||enName.includes(q);if(matchCat&&matchQ){c.style.display="";n++}else{c.style.display="none"}});countEl.textContent=n+" نشاط تعليمي"}btns.forEach(b=>b.addEventListener("click",()=>{btns.forEach(x=>x.classList.remove("active"));b.classList.add("active");activeCat=b.dataset.cat;filter()}));search.addEventListener("input",filter);</script></body></html>
